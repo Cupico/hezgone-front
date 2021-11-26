@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+// import { useContext, useEffect } from "react";
+import "./App.css";
+
+// import { StateStoreContext } from "./context/context";
+
+import Home from "./pages/Home";
+import Authentication from "./pages/Authentication";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
+
+  // const Context = useContext(StateStoreContext);
+  // console.log(Context);
+
+  // useEffect(() => {
+  //   if (Context.globalState.token === "") {
+  //     console.log("state change");
+  //   }
+  // }, [Context.globalState]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/auth" element={<Authentication />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
