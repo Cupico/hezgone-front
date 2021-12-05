@@ -4,7 +4,13 @@ import { createContext } from "react";
 export const StateStoreContext = createContext();
 
 export const GlobalState = ({ children }) => {
-  const [globalState, setGlobalState] = useState({name: "", lastname: "", token: ""});
+  const [globalState, setGlobalState] = useState({
+    name: "",
+    last_name: "",
+    token: "",
+    id: ""
+  });
+
 
   return (
     <StateStoreContext.Provider value={{ globalState, setGlobalState }}>

@@ -1,6 +1,9 @@
 import axios from "axios";
+import io from "socket.io-client";
 
 export const endpoint = "http://localhost:3000";
+
+export const socket = io(endpoint);
 
 
 export const register = async (userRegister) => {

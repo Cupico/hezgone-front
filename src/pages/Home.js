@@ -1,15 +1,40 @@
-import { useEffect } from "react";
-import socketIOClient from "socket.io-client";
-import { endpoint } from "../api/api";
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router";
+
+import { socket } from "../api/api";
+import { StateStoreContext } from "../context/context";
 
 function Home() {
-  console.log(endpoint);
+  const Context = useContext(StateStoreContext);
+  let navigate = useNavigate();
 
   useEffect(() => {
-    const socket = socketIOClient(endpoint);
-    // socket.on("connection", (data) => {
-    //   console.log("yess");
-    // });
+    // Socket
+    socket.on("connect", (err) => {});
+
+    // socket.emit("user", Context.globalState);
+    socket.emit("hello", "world");
+  }, []);
+
+  // Check info user...
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (Context.globalState.id === "" && !user) {
+      navigate("/auth");
+    } else {
+      if (user) {
+        Context.setGlobalState({
+          name: user.name,
+          last_name: user.last_name,
+          token: user.token,
+          id: user.id,
+        });
+      } else {
+        if (Context.globalState.id) {
+          localStorage.setItem("user", JSON.stringify(Context.globalState));
+        }
+      }
+    }
   }, []);
 
   return <div>Salut home</div>;

@@ -17,7 +17,9 @@ function App() {
   //   if (Context.globalState.token === "") {
   //     console.log("state change");
   //   }
-  // }, [Context.globalState]);
+  // }, [Context.globalState]);;
+
+  // localStorage.clear()
 
   return (
     <Router>

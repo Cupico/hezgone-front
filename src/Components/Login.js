@@ -31,6 +31,7 @@ function Login() {
             name: response.user.name,
             last_name: response.user.last_name,
             token: response.token,
+            id: response.user._id
           });
           pageNavigate();
         }
