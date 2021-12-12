@@ -20,3 +20,20 @@ export const login = async (userLogin) => {
     .catch((error) => error);
 };
 
+export const createEvent = async (event, id) => {
+  return await axios
+    .post(`${endpoint}/event/create`, {event, id})
+    .then((res) => res.data)
+    .catch((error) => error);
+};
+
+
+export const joinEvent = async (eventCode, id) => {
+  return await axios
+    .get(`${endpoint}/event/${eventCode.code}`, { params: {
+    id: id
+  }})
+    .then((res) => res.data)
+    .catch((error) => error);
+};
+

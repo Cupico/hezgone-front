@@ -3,44 +3,65 @@ import { useNavigate } from "react-router";
 import { socket } from "../api/api";
 import { StateStoreContext } from "../context/context";
 
+import { Box } from "@chakra-ui/react";
 
-
+import CreateEvent from "../Components/CreateEvent";
+import JoinEvent from "../Components/JoinEvent";
+import Event from "../Components/Event";
 
 function Home() {
   const Context = useContext(StateStoreContext);
   let navigate = useNavigate();
 
   useEffect(() => {
-    // Socket
-    socket.on("connect", (err) => {});
+    // if room
 
-    // socket.emit("user", Context.globalState);
-    socket.emit("hello", "world");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    let room;
+    if (user && user.event && user.event.code) {
+      room = user.event.code;
+    }
+
+    // Socket
+    socket.on("connect", (err) => {
+      // ROOM
+      socket.emit("room", room);
+    });
+
+    //
+    socket.on("message", function (data) {
+      console.log("Incoming message:", data);
+    });
   }, []);
 
   // Check info user...
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (Context.globalState.id === "" && !user) {
+    if (!user.id) {
       navigate("/auth");
-    } else {
-      if (user) {
-        Context.setGlobalState({
-          name: user.name,
-          last_name: user.last_name,
-          token: user.token,
-          id: user.id,
-        });
-      } else {
-        if (Context.globalState.id) {
-          localStorage.setItem("user", JSON.stringify(Context.globalState));
-        }
-      }
     }
-  }, []);
+  }, [navigate]);
 
-  return(
-    <div></div>
+  // useEffect(() => {
+
+  //   if(Context.globalState.event){
+
+  //   }
+
+  // },[Context.globalState])
+
+  return (
+    <Box m={6}>
+      {Context.globalState.event ? (
+        <Event/>
+      ) : (
+        <>
+          <CreateEvent />
+          <JoinEvent />
+        </>
+      )}
+    </Box>
   );
 }
 

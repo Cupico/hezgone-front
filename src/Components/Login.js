@@ -47,6 +47,7 @@ function Login() {
     login(userLogin)
       .then((res) => {
         const response = res.data;
+        console.log("res", response)
         if (response) {
           Context.setGlobalState({
             name: response.user.name,

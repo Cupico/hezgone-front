@@ -83,17 +83,17 @@ function Register() {
                   />
                   <Input  
                     type="text"
-                    name={"username"}
+                    name={"name"}
                     value={userRegister.name}
                     onChange={handleRegister}
-                    placeholder="Nom"
+                    placeholder="Prénom"
                     mr="4" />
                   <Input  
                     type="text"
-                    name={"username"}
+                    name={"last_name"}
                     value={userRegister.last_name}
                     onChange={handleRegister}
-                    placeholder="Prénom" />
+                    placeholder="Nom" />
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -106,7 +106,7 @@ function Register() {
                   <Input  
                     type="text"
                     name={"username"}
-                    value={userRegister.name}
+                    value={userRegister.username}
                     onChange={handleRegister}
                     placeholder="Nom d'utilisateur / Email" />
                 </InputGroup>
