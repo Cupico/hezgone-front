@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(Context.globalState);
+ 
     if(Context.globalState){
       localStorage.setItem("user", JSON.stringify(Context.globalState));
     }
