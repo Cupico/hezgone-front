@@ -30,9 +30,12 @@ function Home() {
     });
 
     //
-    socket.on("message", function (data) {
-      console.log("Incoming message:", data);
+    socket.on("event", function (data) {
+      console.log("event:", data);
+      Context.setGlobalState({...Context.globalState, event: data})
     });
+
+
   }, []);
 
   // Check info user...
