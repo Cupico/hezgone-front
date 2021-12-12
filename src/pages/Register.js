@@ -1,9 +1,8 @@
 import Register from "../Components/Register";
-import Login from "../Components/Login";
 
 
 
-function Authentication() {
+function RegisterPage() {
 
 
   return (
@@ -13,4 +12,4 @@ function Authentication() {
   );
 }
 
-export default Authentication;
+export default RegisterPage;

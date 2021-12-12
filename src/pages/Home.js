@@ -1,8 +1,10 @@
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
-
 import { socket } from "../api/api";
 import { StateStoreContext } from "../context/context";
+
+
+
 
 function Home() {
   const Context = useContext(StateStoreContext);
@@ -37,7 +39,9 @@ function Home() {
     }
   }, []);
 
-  return <div>Salut home</div>;
+  return(
+    <div></div>
+  );
 }
 
 export default Home;
