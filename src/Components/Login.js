@@ -132,7 +132,6 @@ function Login() {
               <Button
                 onClick={sendLogin}
                 borderRadius={0}
-                type="submit"
                 variant="solid"
                 bg="white"
                 width="full"
