@@ -4,24 +4,27 @@ import { Button, Input, Box } from "@chakra-ui/react";
 import { socket } from "../api/api";
 import { joinEvent } from "../api/api";
 
-import { StateStoreContext } from "../context/context";
+import { UserContext } from "../context/User";
 
 
 function JoinEvent() {
 
   const [codeEvent, setCodeEvent] = useState({code: ""});
-  const Context = useContext(StateStoreContext);
+  const User = useContext(UserContext);
 
   const handleCodeEvent = (e) => {
     setCodeEvent({ [e.target.name]: e.target.value });
   };
 
   const handleJoinEvent = () => {
-    joinEvent(codeEvent, Context.globalState.id)
+
+    joinEvent(codeEvent, User.userGlobal._id)
     .then((res) => {
+      console.log(res.event);
         let event = res.event;
-        Context.setGlobalState({...Context.globalState, event: event});
+        // Context.setUserGlobal({...Context.userGlobal, event: event});
         socket.emit("room", event.code);
+        socket.emit("users", User.userGlobal._id);
     })
     .catch((err) => console.log(err))
   }

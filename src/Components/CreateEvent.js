@@ -2,23 +2,26 @@ import { useState, useContext } from "react";
 import { Button, Input, Box } from "@chakra-ui/react";
 
 import { createEvent } from "../api/api";
-
-import { StateStoreContext } from "../context/context";
+import { socket } from "../api/api";
+import { UserContext } from "../context/User";
 
 function CreateEvent() {
 
   const [infosEvent, setInfosEvent] = useState({name: ""});
-  const Context = useContext(StateStoreContext);
+  const User = useContext(UserContext);
 
   const infoEvent = (e) => {
     setInfosEvent({ ...infosEvent, [e.target.name]: e.target.value });
   };
 
   const handleCreateEvent = () => {
-    createEvent(infosEvent, Context.globalState.id)
+
+    createEvent(infosEvent, User.userGlobal._id)
     .then((res) => {
         let event = res.event;
-        Context.setGlobalState({...Context.globalState, event: event});
+        // Context.setUserGlobal({...Context.userGlobal, event: event});
+        socket.emit("room", event.code);
+        socket.emit("users", User.userGlobal._id);
     })
     .catch((err) => console.log(err))
   }

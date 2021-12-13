@@ -16,11 +16,12 @@ import {
   FormControl,
   FormHelperText,
   InputRightElement,
-  Icon
+  Icon,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import { StateStoreContext } from "../context/context";
+import { UserContext } from "../context/User";
 
+import { socket } from "../api/api";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -31,7 +32,7 @@ function Login() {
     password: "",
   });
 
-  const Context = useContext(StateStoreContext);
+  const Context = useContext(UserContext);
 
   let navigate = useNavigate();
 
@@ -47,14 +48,11 @@ function Login() {
     login(userLogin)
       .then((res) => {
         const response = res.data;
-        console.log("res", response)
+
         if (response) {
-          Context.setGlobalState({
-            name: response.user.name,
-            last_name: response.user.last_name,
-            token: response.token,
-            id: response.user._id
-          });
+
+          socket.emit(`users`, response.user._id);
+
           pageNavigate();
         }
         // console.log(response)
@@ -98,12 +96,13 @@ function Login() {
                     color="white"
                     children={<CFaUserAlt color="white" />}
                   />
-                  <Input  
+                  <Input
                     type="text"
                     name={"username"}
                     value={userLogin.username}
                     onChange={handleLogin}
-                    placeholder="Nom d'utilisateur" />
+                    placeholder="Nom d'utilisateur"
+                  />
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -121,7 +120,12 @@ function Login() {
                     type={showPassword ? "text" : "password"}
                   />
                   <InputRightElement width="4.5rem">
-                    <Button bg="white" h="1.75rem" size="sm" onClick={handleShowClick}>
+                    <Button
+                      bg="white"
+                      h="1.75rem"
+                      size="sm"
+                      onClick={handleShowClick}
+                    >
                       {showPassword ? "Cacher" : "Voir"}
                     </Button>
                   </InputRightElement>
