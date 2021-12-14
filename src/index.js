@@ -9,6 +9,7 @@ import customTheme from "./utils/theme";
 import GlobalUser from "./context/User";
 import GlobalEvent from "./context/Event";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <GlobalUser>

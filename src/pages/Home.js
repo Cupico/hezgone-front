@@ -1,41 +1,40 @@
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { UserContext } from "../context/User";
 
-import { socket } from "../api/api";
+// import { socket } from "../api/api";
 
 import { Box } from "@chakra-ui/react";
 
 import CreateEvent from "../Components/CreateEvent";
 import JoinEvent from "../Components/JoinEvent";
 
+import { socket } from "../api/api";
+
 function Home() {
   const User = useContext(UserContext);
   let navigate = useNavigate();
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-
-  // Check info user...
   useEffect(() => {
-    console.log(User)
-    if (Object.keys(User.userGlobal).length === 0 || User.userGlobal._id === "") {
-      navigate("/auth");
+    // here we san use socket events and listeners
+    if (User.userGlobal._id !== "" || User.userGlobal._id !== undefined) {
+      socket.on("connect", (err) => {
+        socket.emit("users", User.userGlobal._id);
+      });
+      socket.on("user", function (data) {
+        User.setUserGlobal(data)
+      });
     }
-  }, [User, navigate]);
+
+    return () => socket.disconnect(); //cleanup
+  }, []);
 
   useEffect(() => {
-    // let room;
-    // if (user && user.event && user.event.code) {
-    //   room = user.event.code;
-    // }
-    // Socket
-    // socket.on("connect", (err) => {
-    //   socket.emit("users", user.id);
-    //   // ROOM
-    //   socket.emit("room", room);
-    // });
-  });
+    if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
+      navigate("auth");
+    }
+  }, [navigate, User]);
 
   return (
     <Box m={6}>
@@ -51,10 +50,8 @@ function Home() {
             User.userGlobal.events &&
             User.userGlobal.events.length > 0 &&
             User.userGlobal.events.map((e, i) => (
-              <Link key={i} to={`event/${e._id}`}>
-                <button onClick={() => socket.emit("room", e.code)}>
-                  {e.name}
-                </button>
+              <Link key={i} to={`event/${e._id}`} style={{marginRight:'100px'}}>
+                {e.name}
               </Link>
             ))}
         </Box>

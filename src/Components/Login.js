@@ -19,9 +19,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import { UserContext } from "../context/User";
-
-import { socket } from "../api/api";
+import { UserContext } from "../context/User"
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -32,7 +30,9 @@ function Login() {
     password: "",
   });
 
-  const Context = useContext(UserContext);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const User = useContext(UserContext);
 
   let navigate = useNavigate();
 
@@ -50,17 +50,12 @@ function Login() {
         const response = res.data;
 
         if (response) {
-
-          socket.emit(`users`, response.user._id);
-
+          User.setUserGlobal(response.user);
           pageNavigate();
         }
-        // console.log(response)
       })
       .catch((err) => console.log(err));
   };
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleShowClick = () => setShowPassword(!showPassword);
 

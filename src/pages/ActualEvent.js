@@ -1,23 +1,42 @@
-import { useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 
+import { useParams } from "react-router";
+
+// import { UserContext } from "../context/User";
 import { EventContext } from "../context/Event";
 
-// import { useParams } from "react-router";
-// import { UserContext } from "../context/User";
+import { socket } from "../api/api";
+
+import { getEvent } from "../api/api";
 
 function ActualEvent() {
-  // const event_id = useParams();
+  const event_id = useParams();
 
   // const User = useContext(UserContext);
-
   const Event = useContext(EventContext);
+  
 
-  console.log("event", Event);
+  useEffect(() => {
+    getEvent(event_id.id)
+      .then((res) => {
+        const response = res.event;
+        Event.setEventGlobal(response)
+      })
+      .catch((err) => console.log(err));
+
+    // socket.emit("room", foundEvent.code);
+
+    // socket.on("event", (event) => {
+    //   Event.setEventGlobal(event);
+    // });
+  }, []);
+
+  console.log(event_id.id);
 
   return (
     <Box>
-      {Event && (
+      {Event && Object.keys(Event.eventGlobal).length > 0 && (
         <div>
           <h1>Nom de l'évènement : {Event.eventGlobal.name}</h1>
           <h2>Code : {Event.eventGlobal.code}</h2>
