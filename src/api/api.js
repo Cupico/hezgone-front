@@ -1,7 +1,9 @@
 import axios from "axios";
 import io from "socket.io-client";
 
-export const endpoint = "http://localhost:3000";
+export const endpoint = "https://devlab-back.herokuapp.com";
+
+// host : https://devlab-back.herokuapp.com/
 
 export const socket = io(endpoint);
 
