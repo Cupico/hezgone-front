@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import {  useContext, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 
 import { useParams } from "react-router";

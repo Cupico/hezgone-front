@@ -12,9 +12,7 @@ import {
   Link,
   Avatar,
   FormControl,
-  FormHelperText,
   InputRightElement,
-  Icon
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { register } from "../api/api";

@@ -6,7 +6,7 @@ import { joinEvent } from "../api/api";
 
 import { UserContext } from "../context/User";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function JoinEvent() {

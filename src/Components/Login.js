@@ -15,8 +15,7 @@ import {
   Avatar,
   FormControl,
   FormHelperText,
-  InputRightElement,
-  Icon,
+  InputRightElement
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { UserContext } from "../context/User"
