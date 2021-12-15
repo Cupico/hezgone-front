@@ -47,7 +47,6 @@ function Register() {
 
 
   return (
-    <div>
       <Flex
       flexDirection="column"
       width="100wh"
@@ -152,36 +151,6 @@ function Register() {
         </Link>
       </Box>
     </Flex>
-      <Input
-        type="text"
-        name={"name"}
-        value={userRegister.name}
-        onChange={handleRegister}
-        placeholder="Nom"
-      />
-      <Input
-        type="text"
-        name={"last_name"}
-        value={userRegister.last_name}
-        onChange={handleRegister}
-        placeholder="Nom de famille"
-      />
-      <Input
-        type="text"
-        name={"username"}
-        value={userRegister.username}
-        onChange={handleRegister}
-        placeholder="Nom d'utilisateur"
-      />
-      <Input
-        type="password"
-        name={"password"}
-        value={userRegister.password}
-        onChange={handleRegister}
-        placeholder="Mot de passe"
-      />
-      <Button onClick={sendRegister}>Register </Button>
-    </div>
   );
 }
 
