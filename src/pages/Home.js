@@ -7,6 +7,7 @@ import { EventContext } from "../context/Event";
 // import { socket } from "../api/api";
 
 import { Box } from "@chakra-ui/react";
+import Hero from "../Components/Hero";
 
 import CreateEvent from "../Components/CreateEvent";
 import JoinEvent from "../Components/JoinEvent";
@@ -52,6 +53,7 @@ function Home() {
       ) : (
         <> */}
       <>
+      <Hero />
         <CreateEvent />
         <JoinEvent />
         <Box mt={6}>
