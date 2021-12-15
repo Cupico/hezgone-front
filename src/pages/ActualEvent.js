@@ -22,17 +22,12 @@ function ActualEvent() {
       .then((res) => {
         const response = res.event;
         Event.setEventGlobal(response)
+        socket.emit("room", response.code);
       })
       .catch((err) => console.log(err));
 
-    // socket.emit("room", foundEvent.code);
-
-    // socket.on("event", (event) => {
-    //   Event.setEventGlobal(event);
-    // });
   }, []);
 
-  console.log(event_id.id);
 
   return (
     <Box>

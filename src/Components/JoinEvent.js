@@ -6,11 +6,15 @@ import { joinEvent } from "../api/api";
 
 import { UserContext } from "../context/User";
 
+import { Link, useNavigate } from "react-router-dom";
+
 
 function JoinEvent() {
 
   const [codeEvent, setCodeEvent] = useState({code: ""});
   const User = useContext(UserContext);
+
+  let navigate = useNavigate();
 
   const handleCodeEvent = (e) => {
     setCodeEvent({ [e.target.name]: e.target.value });
@@ -20,11 +24,10 @@ function JoinEvent() {
 
     joinEvent(codeEvent, User.userGlobal._id)
     .then((res) => {
-      console.log(res.event);
         let event = res.event;
-        // Context.setUserGlobal({...Context.userGlobal, event: event});
         socket.emit("room", event.code);
         socket.emit("users", User.userGlobal._id);
+        navigate(`event/${event._id}`);
     })
     .catch((err) => console.log(err))
   }
