@@ -11,7 +11,7 @@ const colors = {
     700: "#086F42",
     800: "#075C37",
     900: "#064C2E"
-  }
+  },
 };
 
 const customTheme = extendTheme({ colors });

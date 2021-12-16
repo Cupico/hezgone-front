@@ -1,40 +1,36 @@
 import { useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../context/User";
-import { EventContext } from "../context/Event";
+// import { EventContext } from "../context/Event";
 
-// import { socket } from "../api/api";
-
-import { Box } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 import Hero from "../Components/Hero";
 
 import CreateEvent from "../Components/CreateEvent";
 import JoinEvent from "../Components/JoinEvent";
+import EventCard from "../Components/EventCard";
 
 import { socket } from "../api/api";
 
 function Home() {
 
   const User = useContext(UserContext);
-  const Event = useContext(EventContext);
+  // const Event = useContext(EventContext);
   let navigate = useNavigate();
 
   useEffect(() => {
-    // here we san use socket events and listeners
     if (User.userGlobal._id !== "" || User.userGlobal._id !== undefined) {
       socket.on("connect", (err) => {
-        console.log("CONNECT")
         socket.emit("users", User.userGlobal._id);
       });
+
       socket.on("user", function (data) {
-        User.setUserGlobal(data)
+        User.setUserGlobal(data);
       });
 
-      socket.on("event", function (data) {
-        Event.setEventGlobal(data)
-        console.log("event emitted : ", data)
-      });
+      // if (Event && Event.eventGlobal && Event.eventGlobal.code && User.userGlobal._id)
+      // socket.emit("disconnecting", {room:Event.eventGlobal.code, user:User.userGlobal._id});
     }
 
     // return () => socket.disconnect(); //cleanup
@@ -48,25 +44,38 @@ function Home() {
 
   return (
     <Box m={6}>
-      {/* {Context.userGlobal && Context.userGlobal.user && Context.userGlobal.user.events.length  > 0 ? (
-        <Event />
-      ) : (
-        <> */}
-      <>
       <Hero />
-        <CreateEvent />
-        <JoinEvent />
-        <Box mt={6}>
-          {User.userGlobal &&
-            User.userGlobal.events &&
-            User.userGlobal.events.length > 0 &&
-            User.userGlobal.events.map((e, i) => (
-              <Link key={i} to={`event/${e._id}`} style={{marginRight:'100px'}}>
-                {e.name}
-              </Link>
-            ))}
-        </Box>
-      </>
+      <CreateEvent />
+      <JoinEvent />
+
+      <Box w="75%" margin="0 auto">
+        <Heading
+          lineHeight={1.1}
+          fontWeight={600}
+          fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
+          textAlign="center"
+        >
+          <Text as={"span"} position={"relative"}>
+            Vos évènements
+          </Text>
+          <br />
+        </Heading>
+      </Box>
+
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        flexDirection="row"
+        justifyContent={"space-between"}
+        w="75%"
+        margin="0 auto"
+        mt={12}
+        pb={6}
+      >
+        {User.userGlobal.events &&
+          User.userGlobal.events.length > 0 &&
+          User.userGlobal.events.map((e, i) => <EventCard key={i} event={e} />)}
+      </Box>
     </Box>
   );
 }

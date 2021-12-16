@@ -9,9 +9,7 @@ import {
   Button,
   Image,
   Icon,
-  IconButton,
   createIcon,
-  IconProps,
   useColorModeValue,
   Input
 } from '@chakra-ui/react';
@@ -40,7 +38,7 @@ function JoinEvent() {
     joinEvent(codeEvent, User.userGlobal._id)
     .then((res) => {
         let event = res.event;
-        socket.emit("room", event.code);
+        socket.emit("room", {room: event.code, user: User.userGlobal._id});
         socket.emit("users", User.userGlobal._id);
         navigate(`event/${event._id}`);
     })

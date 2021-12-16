@@ -14,6 +14,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
 
+  // localStorage.clear()
+
   return (
     <Router>
       <Header />
