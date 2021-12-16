@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text, Avatar, Flex, Badge} from "@chakra-ui/react";
 
 import { useParams } from "react-router";
 
@@ -10,6 +10,8 @@ import { socket } from "../api/api";
 
 import { getEvent } from "../api/api";
 
+import MapWrapper from "../Components/Map/MapWrapper";
+
 function ActualEvent() {
   const event_id = useParams();
 
@@ -17,23 +19,9 @@ function ActualEvent() {
   const Event = useContext(EventContext);
 
   useEffect(() => {
-    socket.on("event", function (data) {
-      Event.setEventGlobal(data);
-      console.log("event emitted : ", data);
-    });
-
-    if (User.userGlobal._id) {
-      socket.emit("users", User.userGlobal._id);
-    }
-
-    socket.on("user", function (data) {
-      User.setUserGlobal(data);
-    });
-
     getEvent(event_id.id)
       .then((res) => {
         const response = res.event;
-        // Event.setEventGlobal(response)
         socket.emit("room", { room: response.code, user: User.userGlobal._id });
       })
       .catch((err) => console.log(err));
@@ -47,23 +35,46 @@ function ActualEvent() {
   return (
     <Box>
       {Event && Object.keys(Event.eventGlobal).length > 0 && (
-        <div>
+        <Box>
           <h1>Nom de l'évènement : {Event.eventGlobal.name}</h1>
           <h2>Code : {Event.eventGlobal.code}</h2>
           <h3>
             Organisateur : {Event.eventGlobal.members[0].name}{" "}
             {Event.eventGlobal.members[0].last_name}{" "}
           </h3>
+          <h4>
+            Adresse : {Event.eventGlobal.adresse}{" "}
+          </h4>
+          <h5>
+          Heure : {Event.eventGlobal.time}{" "}
+          </h5>
           <div style={{ display: "flex", flexDirection: "column" }}>
             participant :
             {Event.eventGlobal.members.map((e, i) => (
-              <p key={i} style={{ marginRight: "100px" }}>
-                {e.name}, online:{" "}
-                {e.online === true ? "connecté" : "déconnecté"}
-              </p>
+              <Flex key={i}>
+              <Avatar src='https://bit.ly/sage-adebayo' />
+              <Box ml='3'>
+                <Text fontWeight='bold'>
+                    {e.name}
+                  <Badge ml='1' colorScheme={e.online === true ? "green" : "red"}>
+                  {e.online === true ? "connecté" : "déconnecté"}
+                  </Badge>
+                </Text>
+                <Text fontSize='sm'>UI Engineer</Text>
+              </Box>
+            </Flex>
             ))}
           </div>
-        </div>
+
+          <Box
+            display="flex"
+            flexDirection="column"
+            height="300px"
+            width="700px"
+          >
+            <MapWrapper />
+          </Box>
+        </Box>
       )}
     </Box>
   );

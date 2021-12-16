@@ -11,36 +11,26 @@ import CreateEvent from "../Components/CreateEvent";
 import JoinEvent from "../Components/JoinEvent";
 import EventCard from "../Components/EventCard";
 
-import { socket } from "../api/api";
 
 function Home() {
-
   const User = useContext(UserContext);
   // const Event = useContext(EventContext);
   let navigate = useNavigate();
 
-  useEffect(() => {
-    if (User.userGlobal._id !== "" || User.userGlobal._id !== undefined) {
-      socket.on("connect", (err) => {
-        socket.emit("users", User.userGlobal._id);
-      });
-
-      socket.on("user", function (data) {
-        User.setUserGlobal(data);
-      });
-
-      // if (Event && Event.eventGlobal && Event.eventGlobal.code && User.userGlobal._id)
-      // socket.emit("disconnecting", {room:Event.eventGlobal.code, user:User.userGlobal._id});
-    }
-
-    // return () => socket.disconnect(); //cleanup
-  }, []);
+  // useEffect(() => {
+  //   if (Event.eventGlobal.code && User.userGlobal._id) {
+  //     // socket.emit("leaveRoom", {
+  //     //   room: Event.eventGlobal.code,
+  //     //   user: User.userGlobal._id,
+  //     // });
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
-      navigate("auth");
+      navigate("connexion");
     }
-  }, [navigate, User]);
+  }, [User]);
 
   return (
     <Box m={6}>

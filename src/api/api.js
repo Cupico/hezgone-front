@@ -30,14 +30,14 @@ export const createEvent = async (event, id) => {
 };
 
 
-export const joinEvent = async (eventCode, id) => {
-  return await axios
-    .get(`${endpoint}/event/join/${eventCode.code}`, { params: {
-    id: id
-  }})
-    .then((res) => res.data)
-    .catch((error) => error);
-};
+// export const joinEvent = async (eventCode, id) => {
+//   return await axios
+//     .get(`${endpoint}/event/join/${eventCode.code}`, { params: {
+//     id: id
+//   }})
+//     .then((res) => res.data)
+//     .catch((error) => error);
+// };
 
 
 export const getEvent = async (eventCode) => {

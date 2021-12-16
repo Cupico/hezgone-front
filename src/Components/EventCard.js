@@ -4,8 +4,6 @@ import { Box, Text } from "@chakra-ui/react";
 
 function EventCard(props) {
 
-    console.log(props)
-
     const { event } = props
 
   return (

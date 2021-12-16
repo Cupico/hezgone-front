@@ -15,7 +15,9 @@ ReactDOM.render(
     <GlobalUser>
       <GlobalEvent>
         <ChakraProvider theme={customTheme}>
-          <App />
+          {/* <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"}> */}
+            <App />
+          {/* </Wrapper> */}
         </ChakraProvider>
       </GlobalEvent>
     </GlobalUser>

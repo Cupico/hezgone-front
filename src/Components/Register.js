@@ -9,13 +9,14 @@ import {
   InputLeftElement,
   chakra,
   Box,
-  Link,
   Avatar,
   FormControl,
   InputRightElement,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { register } from "../api/api";
+
+import { useNavigate, Link} from "react-router-dom";
 
 
 const CFaUserAlt = chakra(FaUserAlt);
@@ -30,13 +31,20 @@ function Register() {
     password: "",
   });
 
+  const navigate = useNavigate()
+
   const handleRegister = (e) => {
     setUserRegister({ ...userRegister, [e.target.name]: e.target.value });
   };
 
-  const sendRegister = () => {
+  const sendRegister = (e) => {
     register(userRegister)
-      .then((res) => console.log(res))
+      .then((res) => {
+
+        if(res){
+          navigate("connexion")
+        }
+      })
       .catch((err) => console.log(err));
   };
 
@@ -64,7 +72,6 @@ function Register() {
         <Avatar bg="#5E5CE6" />
         <Heading color="#5E5CE6">Inscription</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
             <Stack
               spacing={4}
               p="1rem"
@@ -130,9 +137,8 @@ function Register() {
                 </InputGroup>
               </FormControl>
               <Button
-                 onClick={sendRegister}
+                onClick={sendRegister}
                 borderRadius={0}
-                type="submit"
                 variant="solid"
                 bg="white"
                 width="full"
@@ -141,13 +147,12 @@ function Register() {
                 Insciption
               </Button>
             </Stack>
-          </form>
         </Box>
       </Stack>
       <Box>
         Vous avez déjà un comtpe ?{" "}
-        <Link color="#5E5CE6" href="#">
-          Connexion
+        <Link to={"connexion"}>
+          <span style={{color: "#5E5CE6"}}>Connexion</span>
         </Link>
       </Box>
     </Flex>

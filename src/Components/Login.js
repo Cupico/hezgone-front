@@ -1,5 +1,5 @@
 import { React, useState, useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../api/api";
 import {
   Flex,
@@ -11,10 +11,8 @@ import {
   InputLeftElement,
   chakra,
   Box,
-  Link,
   Avatar,
   FormControl,
-  FormHelperText,
   InputRightElement
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -124,9 +122,6 @@ function Login() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <FormHelperText textAlign="right">
-                  <Link color="white">mot de passe oublié ?</Link>
-                </FormHelperText>
               </FormControl>
               <Button
                 onClick={sendLogin}
@@ -144,8 +139,8 @@ function Login() {
       </Stack>
       <Box>
         Vous êtes nouveau ?{" "}
-        <Link color="#5E5CE6" href="#">
-          Insciption
+        <Link to={"inscription"}>
+          <span style={{color: "#5E5CE6"}}>Insciption</span>
         </Link>
       </Box>
     </Flex>
