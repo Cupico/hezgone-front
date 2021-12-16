@@ -25,14 +25,13 @@ const Searcher = (props) => {
   };
 
   useEffect(() => {
-
-    if (Event.eventGlobal.adresse){
-        onSearch(Event.eventGlobal.adresse);
-    } 
-
+    if (Event.eventGlobal.adresse) {
+      onSearch(Event.eventGlobal.adresse);
+    }
+    
   }, [Event.eventGlobal.adresse]);
 
-  return <>ded</>;
+  return <></>;
 };
 
 export default Searcher;

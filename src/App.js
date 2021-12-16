@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import "./App.css";
 import Header from "./Components/Header";
-import Footer from "./Components/Footer";
+// import Footer from "./Components/Footer";
 
 
 import Home from "./pages/Home";
@@ -68,7 +68,7 @@ function App() {
 
         <Route path="/" element={<Home />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }

@@ -21,7 +21,7 @@ function MyMapComponent() {
   // Add marker
   useEffect(() => {
     if (map) {
-      map.setOptions({ center, zoom: 3 });
+      map.setOptions({ center, zoom: 12 });
     }
     new window.google.maps.Marker({
       position: center,
