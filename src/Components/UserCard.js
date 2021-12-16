@@ -2,19 +2,16 @@ import {
   Heading,
   Avatar,
   Box,
-  Center,
-  Image,
   Flex,
   Text,
   Stack,
-  Button,
+  Badge,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 function UserCard(props) {
-  const { user, number } = props;
+  const { user} = props;
 
-  console.log(number)
 
   return (
     <Box
@@ -24,6 +21,8 @@ function UserCard(props) {
       boxShadow={"2xl"}
       rounded={"md"}
       overflow={"hidden"}
+      maxH={"400px"}
+      mt={4}
     >
       <Box
         h={"120px"}
@@ -46,37 +45,14 @@ function UserCard(props) {
           <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"} textTransform={"capitalize"}>
             {user.name} {user.last_name}
           </Heading>
-          <Text color={"gray.500"}>Frontend Developer</Text>
+          <Text color={"gray.500"} pt={2}>Arrive à 20h</Text>
         </Stack>
 
         <Stack direction={"row"} justify={"center"} spacing={6}>
           <Stack spacing={0} align={"center"}>
-            <Text fontWeight={600}>23k</Text>
-            <Text fontSize={"sm"} color={"gray.500"}>
-              Followers
-            </Text>
-          </Stack>
-          <Stack spacing={0} align={"center"}>
-            <Text fontWeight={600}>23k</Text>
-            <Text fontSize={"sm"} color={"gray.500"}>
-              Followers
-            </Text>
+          <Badge colorScheme='green'>{"En ligne"}</Badge>
           </Stack>
         </Stack>
-
-        <Button
-          w={"full"}
-          mt={8}
-          bg={useColorModeValue("#151f21", "gray.900")}
-          color={"white"}
-          rounded={"md"}
-          _hover={{
-            transform: "translateY(-2px)",
-            boxShadow: "lg",
-          }}
-        >
-          Follow
-        </Button>
       </Box>
     </Box>
   );
