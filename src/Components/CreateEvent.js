@@ -86,7 +86,7 @@ function CreateEvent() {
               w={"100%"}
               h={"100%"}
               src={
-                "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+                "https://burst.shopifycdn.com/photos/summer-drinking-games.jpg?width=1850&format=pjpg&exif=1&iptc=1 2x"
               }
             />
           </Box>
