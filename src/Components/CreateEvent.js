@@ -151,7 +151,7 @@ function CreateEvent() {
             />
             <Button
               color={"white"}
-              bg={"#5E5CE6"}
+              bg={"#69CEB7"}
               mt={2}
               onClick={handleCreateEvent}
             >
