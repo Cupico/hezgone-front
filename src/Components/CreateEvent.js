@@ -69,7 +69,7 @@ function CreateEvent() {
             top={"-20%"}
             left={0}
             zIndex={-1}
-            color={useColorModeValue("#5E5CE6", "red.400")}
+            color={useColorModeValue("#69CEB7", "red.400")}
           />
           <Box
             position={"relative"}
@@ -107,14 +107,14 @@ function CreateEvent() {
                 position: "absolute",
                 bottom: 1,
                 left: 0,
-                bg: "#5E5CE6",
+                bg: "#69CEB7",
                 zIndex: -1,
               }}
             >
               Créé ton Evenement
             </Text>
             <br />
-            <Text as={"span"} color={"#5E5CE6"}>
+            <Text as={"span"} color={"#69CEB7"}>
               Mainteant et simplement
             </Text>
           </Heading>

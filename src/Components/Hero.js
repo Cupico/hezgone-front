@@ -35,13 +35,13 @@ import {
                   position: 'absolute',
                   bottom: 1,
                   left: 0,
-                  bg: '#5E5CE6',
+                  bg: '#69CEB7',
                   zIndex: -1,
                 }}>
                  Pas de soirée ?
               </Text>
               <br />
-              <Text as={'span'} color={'#5E5CE6'}>
+              <Text as={'span'} color={'#69CEB7'}>
                 C'est fini
               </Text>
             </Heading>
@@ -57,8 +57,8 @@ import {
                 fontWeight={'normal'}
                 px={6}
                 colorScheme={'red'}
-                bg={'#5E5CE6'}
-                _hover={{ bg: '#5E5CE6' }}>
+                bg={'#69CEB7'}
+                _hover={{ bg: '#69CEB7' }}>
                 Commencer
               </Button>
               <Button
@@ -84,7 +84,7 @@ import {
               top={'-20%'}
               left={0}
               zIndex={-1}
-              color={useColorModeValue('#5E5CE6', 'red.400')}
+              color={useColorModeValue('#69CEB7', 'red.400')}
             />
             <Box
               position={'relative'}

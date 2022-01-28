@@ -71,14 +71,14 @@ function JoinEvent() {
                 position: "absolute",
                 bottom: 1,
                 left: 0,
-                bg: "#5E5CE6",
+                bg: "#69CEB7",
                 zIndex: -1,
               }}
             >
               Rejoins l'Evenement
             </Text>
             <br />
-            <Text as={"span"} color={"#5E5CE6"}>
+            <Text as={"span"} color={"#69CEB7"}>
               Avec le code
             </Text>
           </Heading>
@@ -101,7 +101,7 @@ function JoinEvent() {
             />
             <Button
               color={"white"}
-              bg={"#5E5CE6"}
+              bg={"#69CEB7"}
               mt={2}
               onClick={handleJoinEvent}
             >
@@ -123,7 +123,7 @@ function JoinEvent() {
             top={"-20%"}
             left={0}
             zIndex={-1}
-            color={useColorModeValue("#5E5CE6", "red.400")}
+            color={useColorModeValue("#69CEB7", "red.400")}
           />
           <Box
             position={"relative"}
