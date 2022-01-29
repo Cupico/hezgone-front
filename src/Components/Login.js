@@ -71,14 +71,14 @@ function Login() {
         justifyContent="center"
         alignItems="center"
       >
-        <Avatar bg="#5E5CE6" />
-        <Heading color="#5E5CE6">Connexion</Heading>
+        <Avatar bg="#69CEB7" />
+        <Heading color="#69CEB7">Connexion</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
           <form>
             <Stack
               spacing={4}
               p="1rem"
-              backgroundColor="#5E5CE6"
+              backgroundColor="#69CEB7"
               boxShadow="md"
             >
               <FormControl>
@@ -129,7 +129,7 @@ function Login() {
                 variant="solid"
                 bg="white"
                 width="full"
-                color="#5E5CE6"
+                color="#69CEB7"
               >
                 Connexion
               </Button>
@@ -140,7 +140,7 @@ function Login() {
       <Box>
         Vous êtes nouveau ?{" "}
         <Link to={"inscription"}>
-          <span style={{color: "#5E5CE6"}}>Insciption</span>
+          <span style={{color: "#69CEB7"}}>Insciption</span>
         </Link>
       </Box>
     </Flex>

@@ -2,11 +2,13 @@ import React from "react";
 import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
 
 import Logo from "./Logo";
+import { useColorMode } from "@chakra-ui/react";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
 
   return (
     <NavBarContainer {...props}>
@@ -60,7 +62,11 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   );
 };
 
+
 const MenuLinks = ({ isOpen }) => {
+
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -102,6 +108,9 @@ const MenuLinks = ({ isOpen }) => {
             Inscription
           </Button>
         </MenuItem>
+        <Button onClick={toggleColorMode}>
+          Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+        </Button>
       </Stack>
     </Box>
   );
@@ -125,5 +134,6 @@ const NavBarContainer = ({ children, ...props }) => {
     </Flex>
   );
 };
+
 
 export default NavBar;
