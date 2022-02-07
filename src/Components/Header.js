@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
-
+import {MoonIcon, SunIcon} from "@chakra-ui/icons"
 import Logo from "./Logo";
 import { useColorMode } from "@chakra-ui/react";
 
@@ -109,7 +109,7 @@ const MenuLinks = ({ isOpen }) => {
           </Button>
         </MenuItem>
         <Button onClick={toggleColorMode}>
-          Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+          {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
         </Button>
       </Stack>
     </Box>
