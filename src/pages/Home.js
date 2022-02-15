@@ -17,15 +17,6 @@ function Home() {
   // const Event = useContext(EventContext);
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (Event.eventGlobal.code && User.userGlobal._id) {
-  //     // socket.emit("leaveRoom", {
-  //     //   room: Event.eventGlobal.code,
-  //     //   user: User.userGlobal._id,
-  //     // });
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
       navigate("connexion");

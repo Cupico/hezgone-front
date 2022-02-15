@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import "./App.css";
 import Header from "./Components/Header";
 // import Footer from "./Components/Footer";
+import { useNavigate } from "react-router-dom";
 
 
 import Home from "./pages/Home";
@@ -22,39 +23,21 @@ function App() {
   const User = useContext(UserContext)
   const Event = useContext(EventContext)
 
+  socket.on("connect", (err) => {
+    socket.emit("users", User.userGlobal._id);
 
-  useEffect(() => {
-
-    socket.on("connect", (err) => {
-      socket.emit("users", User.userGlobal._id);
-
-      socket.on("event", function (data) {
-        Event.setEventGlobal(data);
-        console.log("event emitted : ", data);
-      });
-  
-      socket.on("user", function (data) {
-        User.setUserGlobal(data);
-      });
+    socket.on("event", function (data) {
+      Event.setEventGlobal(data);
+      console.log("event emitted : ", data);
     });
+    
 
-
-
-
-    //   if(Event && Event.eventGlobal && Event.eventGlobal.code)
-    //   socket.emit("leaveRoom", {room:Event.eventGlobal.code, user:User.userGlobal._id})
-    //   // console.log(socket.id); // undefined
-    // });
-  }, []);
-
-
-  // useEffect(() => {
-  //   if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
-  //     navigate("auth");
-  //   }
-  // }, [navigate, User]);
-
-  // localStorage.clear()
+    socket.on("user", function (data) {
+      console.log("bien recu mes info user")
+      User.setUserGlobal(data);
+      console.log("user", data)
+    });
+  });
 
   return (
     <Router>
