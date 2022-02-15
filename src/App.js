@@ -2,7 +2,6 @@ import { useEffect, useContext } from "react";
 import "./App.css";
 import Header from "./Components/Header";
 // import Footer from "./Components/Footer";
-import { useNavigate } from "react-router-dom";
 
 
 import Home from "./pages/Home";
@@ -23,21 +22,27 @@ function App() {
   const User = useContext(UserContext)
   const Event = useContext(EventContext)
 
-  socket.on("connect", (err) => {
-    socket.emit("users", User.userGlobal._id);
+  useEffect(() => {
 
-    socket.on("event", function (data) {
-      Event.setEventGlobal(data);
-      console.log("event emitted : ", data);
-    });
-    
+    socket.on("connect", (err) => {
+      socket.emit("users", User.userGlobal._id);
+  
+      socket.on("event", function (data) {
+        Event.setEventGlobal(data);
+        console.log("event emitted : ", data);
+      });
+      
+  
+      socket.on("user", function (data) {
+        console.log("bien recu mes info user")
+        User.setUserGlobal(data);
+        console.log("user", data)
+      });
 
-    socket.on("user", function (data) {
-      console.log("bien recu mes info user")
-      User.setUserGlobal(data);
-      console.log("user", data)
     });
-  });
+
+  }, [])
+
 
   return (
     <Router>

@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../context/User";
-// import { EventContext } from "../context/Event";
+import { EventContext } from "../context/Event";
 
 import { Box, Heading, Text, SimpleGrid } from "@chakra-ui/react";
 import Hero from "../Components/Hero";
@@ -14,6 +14,8 @@ import EventCard from "../Components/EventCard";
 
 function Home() {
   const User = useContext(UserContext);
+  const Event = useContext(EventContext);
+
   // const Event = useContext(EventContext);
   let navigate = useNavigate();
 
@@ -21,6 +23,9 @@ function Home() {
     if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
       navigate("connexion");
     }
+
+    Event.setEventGlobal([]);
+
   }, [User]);
 
   return (
