@@ -69,13 +69,13 @@ function Register() {
         justifyContent="center"
         alignItems="center"
       >
-        <Avatar bg="#5E5CE6" />
-        <Heading color="#5E5CE6">Inscription</Heading>
+        <Avatar bg="#69CEB7" />
+        <Heading color="#69CEB7">Inscription</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
             <Stack
               spacing={4}
               p="1rem"
-              backgroundColor="#5E5CE6"
+              backgroundColor="#69CEB7"
               boxShadow="md"
             >
               <FormControl>
@@ -142,7 +142,7 @@ function Register() {
                 variant="solid"
                 bg="white"
                 width="full"
-                color="#5E5CE6"
+                color="#69CEB7"
               >
                 Insciption
               </Button>
@@ -152,7 +152,7 @@ function Register() {
       <Box>
         Vous avez déjà un comtpe ?{" "}
         <Link to={"connexion"}>
-          <span style={{color: "#5E5CE6"}}>Connexion</span>
+          <span style={{color: "#69CEB7"}}>Connexion</span>
         </Link>
       </Box>
     </Flex>

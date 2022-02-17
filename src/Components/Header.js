@@ -1,19 +1,27 @@
 import React from "react";
 import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
-
+import {MoonIcon, SunIcon} from "@chakra-ui/icons"
 import Logo from "./Logo";
+import { useColorMode } from "@chakra-ui/react";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <NavBarContainer {...props}>
       <Logo
         w="100px"
         color={["#69CEB7", "#69CEB7", "#69CEB7", "#69CEB7"]}
       />
+      <Button
+         onClick={toggleColorMode}
+         display={{base:"block", md:"none"}}
+        >
+          {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+        </Button>
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
@@ -35,7 +43,7 @@ const MenuIcon = () => (
     width="24px"
     viewBox="0 0 20 20"
     xmlns="http://www.w3.org/2000/svg"
-    fill="#5E5CE6"
+    fill="#69CEB7"
   >
     <title>Menu</title>
     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
@@ -60,7 +68,11 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   );
 };
 
+
 const MenuLinks = ({ isOpen }) => {
+
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -74,8 +86,8 @@ const MenuLinks = ({ isOpen }) => {
         pt={[4, 4, 0, 0]}
       >
         <MenuItem to="/">Accueil</MenuItem>
-        <MenuItem to="/comment-ca-marche">Comment ça marche</MenuItem>
-        <MenuItem to="/fonctionnalites">Fonctionnalités</MenuItem>
+        {/*<MenuItem to="/comment-ca-marche">Comment ça marche</MenuItem>
+        <MenuItem to="/fonctionnalites">Fonctionnalités</MenuItem>*/}
         <MenuItem to="/connexion">
           <Button
             size="sm"
@@ -102,6 +114,12 @@ const MenuLinks = ({ isOpen }) => {
             Inscription
           </Button>
         </MenuItem>
+        <Button
+         onClick={toggleColorMode}
+         display={{base:"none", md:"block"}}
+        >
+          {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+        </Button>
       </Stack>
     </Box>
   );
@@ -125,5 +143,6 @@ const NavBarContainer = ({ children, ...props }) => {
     </Flex>
   );
 };
+
 
 export default NavBar;

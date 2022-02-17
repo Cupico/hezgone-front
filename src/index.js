@@ -4,11 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
-import customTheme from "./utils/theme";
-
 import GlobalUser from "./context/User";
 import GlobalEvent from "./context/Event";
+
+import customTheme from "./utils/theme";
+import colorMode from "./utils/colormode";
+import { ColorModeScript } from '@chakra-ui/react'
+
 import GlobalChat from "./context/Chat";
+
 
 ReactDOM.render(
   <React.StrictMode>
