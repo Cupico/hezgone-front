@@ -7,7 +7,7 @@ function EventCard(props) {
     const { event } = props
 
   return (
-    <Link to={`event/${event._id}`}>
+    <Link to={`event/${event.code}`}>
       <Stat
       px={{ base: 4, md: 8 }}
       py={'5'}

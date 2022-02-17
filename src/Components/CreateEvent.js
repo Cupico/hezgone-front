@@ -34,15 +34,12 @@ function CreateEvent() {
   };
 
   const handleCreateEvent = () => {
-    createEvent(infosEvent, User.userGlobal._id)
+     createEvent(infosEvent, User.userGlobal._id)
       .then((res) => {
         let event = res.event;
         // Context.setUserGlobal({...Context.userGlobal, event: event});
         socket.emit("room", { room: event.code, user: User.userGlobal._id });
-        socket.emit("users", User.userGlobal._id);
-        socket.on("event", function (data) {
-          navigate(`event/${data._id}`);
-        });
+        navigate(`event/${event.code}`);
       })
       .catch((err) => console.log(err));
   };
@@ -163,7 +160,6 @@ function CreateEvent() {
     </Container>
   );
 }
-
 
 export const Blob = (props) => {
   return (

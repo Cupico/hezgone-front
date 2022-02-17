@@ -35,10 +35,8 @@ function JoinEvent() {
   const handleJoinEvent = () => {
     socket.emit("room", { room: codeEvent.code, user: User.userGlobal._id });
     socket.emit("users", User.userGlobal._id);
+    navigate(`event/${codeEvent.code}`);
 
-    socket.on("event", function (data) {
-      navigate(`event/${data._id}`);
-    });
   };
 
   // useEffect(() => {

@@ -22,39 +22,27 @@ function App() {
   const User = useContext(UserContext)
   const Event = useContext(EventContext)
 
-
   useEffect(() => {
 
     socket.on("connect", (err) => {
       socket.emit("users", User.userGlobal._id);
-
+  
       socket.on("event", function (data) {
         Event.setEventGlobal(data);
         console.log("event emitted : ", data);
       });
+      
   
       socket.on("user", function (data) {
+        console.log("bien recu mes info user")
         User.setUserGlobal(data);
+        console.log("user", data)
       });
+
     });
 
+  }, [])
 
-
-
-    //   if(Event && Event.eventGlobal && Event.eventGlobal.code)
-    //   socket.emit("leaveRoom", {room:Event.eventGlobal.code, user:User.userGlobal._id})
-    //   // console.log(socket.id); // undefined
-    // });
-  }, []);
-
-
-  // useEffect(() => {
-  //   if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
-  //     navigate("auth");
-  //   }
-  // }, [navigate, User]);
-
-  // localStorage.clear()
 
   return (
 

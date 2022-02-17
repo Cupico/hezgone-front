@@ -6,19 +6,25 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import GlobalUser from "./context/User";
 import GlobalEvent from "./context/Event";
+
 import customTheme from "./utils/theme";
 import colorMode from "./utils/colormode";
 import { ColorModeScript } from '@chakra-ui/react'
+
+import GlobalChat from "./context/Chat";
+
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalUser>
       <GlobalEvent>
-        <ChakraProvider theme={customTheme}>
-          {/* <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"}> */}
+        <GlobalChat>
+          <ChakraProvider theme={customTheme}>
+            {/* <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"}> */}
             <App />
-          {/* </Wrapper> */}
-        </ChakraProvider>
+            {/* </Wrapper> */}
+          </ChakraProvider>
+        </GlobalChat>
       </GlobalEvent>
     </GlobalUser>
   </React.StrictMode>,

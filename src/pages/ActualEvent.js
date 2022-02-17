@@ -5,37 +5,44 @@ import { useParams } from "react-router";
 
 import { UserContext } from "../context/User";
 import { EventContext } from "../context/Event";
+import { ChatContext } from "../context/Chat";
 
 import { socket } from "../api/api";
-
-import { getEvent } from "../api/api";
 
 import MapWrapper from "../Components/Map/MapWrapper";
 
 import UserCard from "../Components/UserCard";
+import Chats from "../Components/Chats";
 
 function ActualEvent() {
-  const event_id = useParams();
+  const room = useParams();
 
   const User = useContext(UserContext);
   const Event = useContext(EventContext);
+  const Chat = useContext(ChatContext);
 
   useEffect(() => {
-    getEvent(event_id.id)
-      .then((res) => {
-        const response = res.event;
-        socket.emit("room", { room: response.code, user: User.userGlobal._id });
-      })
-      .catch((err) => console.log(err));
+    socket.on("message", function (data) {
+      Chat.setChatGlobal(data);
+    });
 
-    //   if(Event && Event.eventGlobal && Event.eventGlobal.code)
-    //   socket.emit("leaveRoom", {room:Event.eventGlobal.code, user:User.userGlobal._id})
-    //   // console.log(socket.id); // undefined
-    // });
-  }, []);
+    // Enter in room
+    socket.emit("room", { room: room.id, user: User.userGlobal._id });
+
+    // Get CHAT
+    socket.emit("chat", { room: room.id || Event.eventGlobal.code });
+
+    return () => {
+      socket.off("message");
+      socket.off("room");
+      socket.off("chat");
+    };
+  }, [Event.eventGlobal.code, room.id]);
 
   return (
     <Box px={"10%"}>
+      <Chats />
+
       {Event && Object.keys(Event.eventGlobal).length > 0 && (
         <Box>
           <Box
@@ -63,7 +70,9 @@ function ActualEvent() {
               {Event.eventGlobal.name}
             </Heading>
             <Box>
-            <Badge colorScheme='purple' fontSize={"1.5rem"}>{Event.eventGlobal.code}</Badge>
+              <Badge colorScheme="purple" fontSize={"1.5rem"}>
+                {Event.eventGlobal.code}
+              </Badge>
             </Box>
           </Box>
           <Box
