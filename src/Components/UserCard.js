@@ -18,7 +18,7 @@ function UserCard(props) {
     <Box
       maxW={"270px"}
       w={"400px"}
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "#69CEB7")}
       boxShadow={"2xl"}
       rounded={"md"}
       overflow={"hidden"}
@@ -47,7 +47,7 @@ function UserCard(props) {
           >
             {user.name} {user.last_name}
           </Heading>
-          <Text color={"gray.500"} pt={2}>
+          <Text color={useColorModeValue("gray.500", "white")} pt={2}>
             Arrive à 20h
           </Text>
         </Stack>

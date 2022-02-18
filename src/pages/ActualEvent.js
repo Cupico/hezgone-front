@@ -40,65 +40,64 @@ function ActualEvent() {
   }, [Event.eventGlobal.code, room.id]);
 
   return (
-    <Box px={"10%"}>
+    <Box px={"5%"}>
       <Chats />
 
       {Event && Object.keys(Event.eventGlobal).length > 0 && (
         <Box>
-          <Box
-            p={4}
-            display="flex"
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            mb={14}
-          >
-            <Box display="flex" alignItems={"center"}>
-              <Avatar
-                name={`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}
-                src="https://bit.ly/broken-link"
-                mr={8}
-              />
-              <Text
-                mr={20}
-              >{`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}</Text>
-            </Box>
-            <Heading
-              fontWeight={600}
-              fontSize={{ base: "2xl", sm: "4xl", md: "5xl" }}
-              lineHeight={"110%"}
-            >
-              {Event.eventGlobal.name}
-            </Heading>
-            <Box>
-              <Badge colorScheme="purple" fontSize={"1.5rem"}>
-                {Event.eventGlobal.code}
-              </Badge>
-            </Box>
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent={"space-between"}
-            flexWrap="wrap"
-          >
+          <Box p={0} display="flex" justifyContent={"space-between"} mb={14}>
             <Box
               display="flex"
               flexDirection="column"
-              height="450px"
-              width="450px"
-              mb={{ base: 10, lg: 0 }}
+              w="50%"
+              paddingRight={10}
+              paddingY={2}
             >
-              <MapWrapper />
+              <Box display="flex" alignItems={"center"} marginBottom={8}>
+                <Heading
+                  fontWeight={600}
+                  fontSize={{ base: "2xl", sm: "4xl", md: "5xl" }}
+          
+                >
+                  {Event.eventGlobal.name}
+                </Heading>
+
+                <Badge colorScheme="purple" fontSize={"1.5rem"} marginLeft="auto" marginTop={2}>
+                  {Event.eventGlobal.code}
+                </Badge>
+              </Box>
+
+              <Box display="flex" alignItems={"center"} marginBottom={8}>
+                <Avatar
+                  name={`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}
+                  src="https://bit.ly/broken-link"
+                  mr={8}
+                />
+                <Text
+                  mr={20}
+                >{`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}</Text>
+              </Box>
+
+              <Box
+                display="flex"
+                flexDirection="column"
+                height="450px"
+                width="100%"
+              >
+                <MapWrapper />
+              </Box>
             </Box>
 
-            <Grid
-              templateColumns={`repeat(${Event.eventGlobal.members.length}, 1fr)`}
-              gap={20}
-            >
-              {Event.eventGlobal.members.map((e, i) => (
-                <UserCard key={i} user={e} />
-              ))}
-            </Grid>
+            <Box w="50%" paddingLeft={10} paddingY={0}>
+              <Grid
+                templateColumns={`repeat(${Event.eventGlobal.members.length}, 1fr)`}
+                gap={20}
+              >
+                {Event.eventGlobal.members.map((e, i) => (
+                  <UserCard key={i} user={e} />
+                ))}
+              </Grid>
+            </Box>
           </Box>
         </Box>
       )}
