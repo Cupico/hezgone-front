@@ -9,21 +9,23 @@ import GlobalEvent from "./context/Event";
 
 import customTheme from "./utils/theme";
 import colorMode from "./utils/colormode";
-import { ColorModeScript } from '@chakra-ui/react'
+import { ColorModeScript } from "@chakra-ui/react";
 
 import GlobalChat from "./context/Chat";
-
+import GlobalSpotify from "./context/Spotify";
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalUser>
       <GlobalEvent>
         <GlobalChat>
-          <ChakraProvider theme={customTheme}>
-            {/* <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"}> */}
-            <App />
-            {/* </Wrapper> */}
-          </ChakraProvider>
+          <GlobalSpotify>
+            <ChakraProvider theme={customTheme}>
+              {/* <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"}> */}
+              <App />
+              {/* </Wrapper> */}
+            </ChakraProvider>
+          </GlobalSpotify>
         </GlobalChat>
       </GlobalEvent>
     </GlobalUser>
