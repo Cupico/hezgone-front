@@ -38,10 +38,10 @@ function Home() {
       console.log("tok", token);
 
       localStorage.setItem("spotifyToken", JSON.stringify(token));
+      console.log("NEW TOKEN", token)
     }
   }, []);
 
-  console.log(User);
 
   return (
     <Box
