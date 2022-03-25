@@ -55,9 +55,9 @@ function ActualEvent() {
       socket.off("message");
       socket.off("room");
       socket.off("chat");
-      socket.off("refreshSpotify");
+      // socket.off("refreshSpotify");
     };
-  }, [Event.eventGlobal.code, room.id]);
+  }, []);
 
   console.log("SPOT", Spot.spotifyGlobal);
 
@@ -117,7 +117,7 @@ function ActualEvent() {
                   height="450px"
                   width="100%"
                 >
-                  {/* <MapWrapper /> */}
+                  <MapWrapper />
                 </Box>
               </Box>
 

@@ -4,10 +4,9 @@ import axios from "axios";
 
 import querystring from "query-string";
 
-import { UserContext } from "../context/User";
-import { EventContext } from "../context/Event";
-import { ChatContext } from "../context/Chat";
 import { SpotifyContext } from "../context/Spotify";
+
+import { socket } from "../api/api";
 
 function Spotify({ Event }) {
   const [token, setToken] = useState("");
@@ -52,24 +51,21 @@ function Spotify({ Event }) {
       },
       params: {
         q: searchKey,
-        type: "artist",
+        type: "track",
       },
     });
 
-    console.log("data", data);
-
-    setArtists(data.artists.items);
+    setArtists(data.tracks.items);
   };
 
   const renderArtists = () => {
     return artists.map((artist) => (
-      <div key={artist.id}>
-        {artist.images.length ? (
-          <img width={"100%"} src={artist.images[0].url} alt="" />
-        ) : (
-          <div>No Image</div>
-        )}
+      <div key={artist.id} style={{ marginBottom: "10px" }}>
+        {artist.artists[0].name}
+        <br />
         {artist.name}
+        <br />
+        Music id : {artist.id}
       </div>
     ));
   };
@@ -84,6 +80,7 @@ function Spotify({ Event }) {
   const createPlaylist = async (e) => {
     e.preventDefault();
 
+    // GET USER ID
     let user_id;
 
     const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -94,13 +91,7 @@ function Spotify({ Event }) {
 
     user_id = await data.id;
 
-    // 	https://api.spotify.com/v1/me
-    const newPlaylist = {
-      name: "New Playlist",
-      description: "New playlist description",
-      public: true,
-    };
-
+    // CREATE PLAYLIST
     var config = {
       method: "post",
       url: `https://api.spotify.com/v1/users/${user_id}/playlists`,
@@ -111,17 +102,21 @@ function Spotify({ Event }) {
       data: createNewPlaylist,
     };
 
-    await axios(config).then((res) => console.log(res));
+    // GET SPOTIFY
+    await axios(config).then((res) => {
+      const response = res.data.id;
+      socket.emit("spotify", {  room: Spot.spotifyGlobal.room, playlist_id: response });
+    });
   };
 
-  console.log("actual token spotify : ", token);
+  console.log("actual spotify global", Spot.spotifyGlobal);
 
   return (
     <Box px={"5%"}>
       <a
         // href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${"token"}&scope=playlist-modify-public`}
         href={urlTokenSpotify}
-        style={{color: "blue"}}
+        style={{ color: "blue" }}
       >
         go spotify
       </a>
