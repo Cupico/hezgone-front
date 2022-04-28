@@ -55,7 +55,7 @@ function ActualEvent() {
       socket.off("message");
       socket.off("room");
       socket.off("chat");
-      // socket.off("refreshSpotify");
+      socket.off("refreshSpotify");
     };
   }, []);
 
