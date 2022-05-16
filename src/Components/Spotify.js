@@ -294,7 +294,7 @@ function Spotify({ Event }) {
               <h1>nom playlist : {playlist.name}</h1>
               {/* <div>
                 <h2>musics :</h2>
-                {Spot.spotifyGlobal && Spot.spotifyGlobal.music.length > 0 && Spot.spotifyGlobal.music.map((e, i) => (
+                {Spot.spotifyGlobal &&s Spot.spotifyGlobal.music.length > 0 && Spot.spotifyGlobal.music.map((e, i) => (
                   <p>{e.name}</p>
                 ))}
               </div> */}
