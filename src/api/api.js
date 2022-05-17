@@ -5,7 +5,7 @@ export const endpoint = "https://back-devlab-hero.herokuapp.com";
 
 // export const endpoint = "http://localhost:3000";
 
-export const REDIRECT_URI = "https://front-devlab-hero.herokuapp.com";
+export const REDIRECT_URI = "https://front-devla-hero.herokuapp.com";
 
 // const REDIRECT_URI = `http://localhost:3001`;
 
