@@ -1,5 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { Box, Grid, Avatar, Text, Heading, Badge } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  Avatar,
+  Text,
+  Heading,
+  Badge,
+  Button,
+} from "@chakra-ui/react";
 
 import { useParams } from "react-router";
 
@@ -17,7 +25,7 @@ import Chats from "../Components/Chats";
 import Spotify from "../Components/Spotify";
 
 function ActualEvent() {
-  const [spotify, setSpotify] = useState(false);
+  const [page, setPage] = useState({ event: true, spotify: false });
 
   const room = useParams();
 
@@ -31,6 +39,7 @@ function ActualEvent() {
       Chat.setChatGlobal(data);
     });
 
+
     socket.on("refreshSpotify", function (data) {
       Spot.setSpotifyGlobal(data);
     });
@@ -40,16 +49,7 @@ function ActualEvent() {
 
     // Get CHAT
     socket.emit("chat", { room: room.id || Event.eventGlobal.code });
-
-    // GET SPOTIFY
-      let spotData = {
-        room: room.id || Event.eventGlobal.code,
-      };
-      if (JSON.parse(localStorage.getItem("spotifyToken")) !== "") {
-        spotData.token = JSON.parse(localStorage.getItem("spotifyToken"));
-      }
-
-      socket.emit("spotify", spotData);
+    
 
     return () => {
       socket.off("message");
@@ -67,13 +67,25 @@ function ActualEvent() {
 
       {Event && Object.keys(Event.eventGlobal).length > 0 && (
         <Box>
-          <button onClick={() => setSpotify((prevState) => !prevState)}>
-            go to page spotify
-          </button>
+          <Box marginBottom="20px">
+            <Button
+              colorScheme="gray"
+              onClick={() => setPage({ event: true, spotify: false })}
+              marginRight="10px"
+            >
+              Evènement
+            </Button>
+            <Button
+              colorScheme="green"
+              onClick={() => setPage({ event: false, spotify: true })}
+            >
+              Music
+            </Button>
+          </Box>
 
-          {spotify && <Spotify Event={Event} />}
+          {page.spotify && <Spotify Event={Event} />}
 
-          {!spotify && (
+          {page.event && (
             <Box p={0} display="flex" justifyContent={"space-between"} mb={14}>
               <Box
                 display="flex"
