@@ -380,5 +380,4 @@ function Spotify({ Event }) {
     </Box>
   );
 }
-
 export default Spotify;

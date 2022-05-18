@@ -9,6 +9,10 @@ export const REDIRECT_URI = "https://front-devla-hero.herokuapp.com";
 
 // const REDIRECT_URI = `http://localhost:3001`;
 
+
+
+export const REDIRECT_URI = `http://localhost:3001`;
+
 export const socket = io(endpoint);
 
 
@@ -50,4 +54,3 @@ export const getEvent = async (eventCode) => {
     .then((res) => res.data)
     .catch((error) => error);
 };
-

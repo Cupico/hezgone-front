@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import ActualEvent from "./pages/ActualEvent";
+import MyEvents from './pages/MyEvents'
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -53,9 +54,8 @@ function App() {
         {/* <Route path="/auth" element={<Authentication />} /> */}
         <Route path="/inscription" element={<Register />} />
         <Route path="/connexion" element={<Login />} />
-
         <Route path="/event/:id" element={<ActualEvent />} />
-
+        <Route path="/myevents" element={<MyEvents />} />
         <Route path="/" element={<Home />} />
       </Routes>
       {/* <Footer /> */}

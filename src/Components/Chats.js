@@ -50,10 +50,9 @@ function Chats() {
 
       style={{
         position: "fixed",
-        width: "30%",
-        height: chatVisible ? "40%" : "50px",
+        width: "100%",
+        height: chatVisible ? "50%" : "50px",
         transition: "all 0.5s",
-        right: "5%",
         bottom: 0,
         boxShadow: "0px 0px 6px 0px",
         overflowY: "hidden",
@@ -75,7 +74,7 @@ function Chats() {
           cursor="pointer"
           onClick={openChat}
         >
-          <p style={{ paddingLeft: "10px" }}>{Event.eventGlobal.name} chat</p>
+          <p style={{ paddingLeft: "10px" }}>{Event.eventGlobal.name} Chat</p>
         </Box>
 
         <div     id="ui-chat" style={{ overflowY: "scroll", height: "70%" }}>

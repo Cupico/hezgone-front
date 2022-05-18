@@ -67,7 +67,7 @@ function Home() {
         <br />
       </Heading>
 
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
         {User.userGlobal.events &&
           User.userGlobal.events.length > 0 &&
           User.userGlobal.events.map((e, i) => <EventCard key={i} event={e} />)}
