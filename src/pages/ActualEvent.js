@@ -1,26 +1,31 @@
-import { useContext, useEffect } from "react";
-import { Box, Grid, Avatar, Text, Heading, Badge, Flex, SimpleGrid, Center } from "@chakra-ui/react";
-import {BsFillGeoAltFill, BsLink, BsFillCalendarWeekFill, BsEyeFill, BsMusicNoteBeamed, BsFillWalletFill} from 'react-icons/bs'
+import { useContext, useEffect, useState } from "react";
+import { Box,Button, Grid, Avatar, Text, Heading, Badge, Flex, SimpleGrid, Center } from "@chakra-ui/react";
+import {BsFillGeoAltFill, BsLink, BsFillCalendarWeekFill, BsEyeFill, BsMusicNoteBeamed} from 'react-icons/bs'
 import { BiDrink, BiCar } from "react-icons/bi";
+import {FaWallet} from "react-icons/fa"
 import { useParams } from "react-router";
 
 import { UserContext } from "../context/User";
 import { EventContext } from "../context/Event";
 import { ChatContext } from "../context/Chat";
+import { SpotifyContext } from "../context/Spotify";
 
 import { socket } from "../api/api";
 
 import MapWrapper from "../Components/Map/MapWrapper";
-
+import Spotify from "../Components/Spotify";
 import UserCard from "../Components/UserCard";
 import Chats from "../Components/Chats";
 
 function ActualEvent() {
+  const [page, setPage] = useState({ event: true, spotify: false });
+
   const room = useParams();
 
   const User = useContext(UserContext);
   const Event = useContext(EventContext);
   const Chat = useContext(ChatContext);
+  const Spot = useContext(SpotifyContext);
 
   useEffect(() => {
     socket.on("message", function (data) {
@@ -37,15 +42,44 @@ function ActualEvent() {
       socket.off("message");
       socket.off("room");
       socket.off("chat");
+      socket.off("refreshSpotify");
     };
-  }, [Event.eventGlobal.code, room.id]);
+  }, []);
 
+
+  //{page.event && ()}
   return (
     <Box>
       <Chats />
+      
 
+      
       {Event && Object.keys(Event.eventGlobal).length > 0 && (
-        <Box m={6}>
+        <Box>
+          <Box marginBottom="20px">
+            <Button
+            colorScheme="gray"
+            onClick={() => setPage({ event: true, spotify: false })}
+            marginRight="10px"
+          >
+            Evènement
+          </Button>
+          <Button
+            colorScheme="green"
+            onClick={() => setPage({ event: false, spotify: true })}
+          >
+            Music
+          </Button>
+        </Box>
+
+          {page.spotify &&(
+            <Box m={6}>
+              <Spotify Event={Event} />
+            </Box>
+          )}
+        {page.event &&(
+        <Box m={6}>  
+        
           <Box p={0} display="flex" justifyContent={"space-between"} mb={5}>
             <Box>
               <Heading fontWeight={"bold"} fontSize={{ base: "4xl", sm: "4xl", md: "5xl" }} mt={4}>
@@ -71,12 +105,11 @@ function ActualEvent() {
             <Box height={'50px'} width={'50px'} bg={'#69CEB7'} rounded={'50%'} style={{border: '3px solid #fff', textAlign: "center"}} ml={-3}><BsEyeFill style={{color: "#fff", display: 'initial', marginTop:'14px'}} /></Box>
           </Flex>
           <SimpleGrid columns={2} spacingY={'20px'} spacingX={'10px'} >
-            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'}><BsMusicNoteBeamed  /></Center>
-            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'}><BsFillWalletFill /></Center>
-            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'}><BiDrink /></Center>
-            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'}><BiCar /></Center>
+            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'} flexDirection='column' onClick={() => setPage({ event: false, spotify: true })}><BsMusicNoteBeamed size={32} color='#69CEB7' /><Text fontWeight='bold' mt={3}>Playlist</Text></Center>
+            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'} flexDirection='column'><FaWallet size={32} color='#69CEB7'/><Text fontWeight='bold' mt={3}>Dépenses</Text></Center>
+            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'} flexDirection='column'><BiDrink size={32} color='#69CEB7'/><Text fontWeight='bold' mt={3}>Répartition</Text></Center>
+            <Center height={'150px'} width={'150px'} boxShadow='0px 0px 10px rgba(0, 0, 0, 0.2)' rounded={'lg'} flexDirection='column'><BiCar size={32} color='#69CEB7'/><Text fontWeight='bold' mt={3}>Rentrer</Text></Center>
           </SimpleGrid>
-
 
 
 
@@ -125,7 +158,10 @@ function ActualEvent() {
                 ))}
               </Grid>
             </Box>
+            
           </Box>
+        </Box>
+        )}
         </Box>
       )}
     </Box>
