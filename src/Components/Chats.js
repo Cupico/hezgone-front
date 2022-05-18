@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import { UserContext } from "../context/User";
 import { EventContext } from "../context/Event";
@@ -19,13 +19,15 @@ function Chats() {
   const [chatVisible, setChatVisible] = useState(false);
 
 
+  console.log("CHAT", Chat.chatGlobal)
+
+
   const sendMessage = () => {
     const message = {
       id: User.userGlobal._id,
       name: User.userGlobal.username,
       message: text,
     };
-    console.log(message);
     socket.emit("chat", { room: Event.eventGlobal.code, message: message });
     setText("");
   };
@@ -35,23 +37,29 @@ function Chats() {
   };
 
   const openChat = () => {
+    socket.emit("chat", { room: Event.eventGlobal.code });
     setChatVisible((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    document.querySelector('#ui-chat').scrollTop = document.querySelector('#ui-chat').scrollHeight
+  }, [Chat.chatGlobal.chat])
+
   return (
     <Box
+
       style={{
         position: "fixed",
-        width: "30%",
-        height: chatVisible ? "40%" : "50px",
+        width: "100%",
+        height: chatVisible ? "50%" : "50px",
         transition: "all 0.5s",
-        right: "5%",
         bottom: 0,
         boxShadow: "0px 0px 6px 0px",
         overflowY: "hidden",
       }}
     >
       <div
+      
         style={{
           height: "100%",
           position: "relative",
@@ -66,10 +74,10 @@ function Chats() {
           cursor="pointer"
           onClick={openChat}
         >
-          <p style={{ paddingLeft: "10px" }}>{Event.eventGlobal.name} chat</p>
+          <p style={{ paddingLeft: "10px" }}>{Event.eventGlobal.name} Chat</p>
         </Box>
 
-        <div style={{ overflowY: "scroll", height: "70%" }}>
+        <div     id="ui-chat" style={{ overflowY: "scroll", height: "70%" }}>
           {Chat &&
             Chat.chatGlobal &&
             Chat.chatGlobal.chat &&

@@ -32,6 +32,10 @@ function ActualEvent() {
       Chat.setChatGlobal(data);
     });
 
+    socket.on("refreshSpotify", function (data) {
+      Spot.setSpotifyGlobal(data);
+    });
+
     // Enter in room
     socket.emit("room", { room: room.id, user: User.userGlobal._id });
 
@@ -46,14 +50,10 @@ function ActualEvent() {
     };
   }, []);
 
-
-  //{page.event && ()}
   return (
     <Box>
       <Chats />
-      
-
-      
+            
       {Event && Object.keys(Event.eventGlobal).length > 0 && (
         <Box>
           <Box marginBottom="20px">

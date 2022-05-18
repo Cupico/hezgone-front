@@ -25,12 +25,13 @@ function App() {
 
   useEffect(() => {
 
+    console.log("APP ")
     socket.on("connect", (err) => {
       socket.emit("users", User.userGlobal._id);
   
       socket.on("event", function (data) {
         Event.setEventGlobal(data);
-        console.log("event emitted : ", data);
+        console.log("get event : ", data);
       });
       
   
@@ -42,8 +43,7 @@ function App() {
 
     });
 
-  }, [])
-
+  }, [socket])
 
   return (
 

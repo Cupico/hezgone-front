@@ -39,7 +39,7 @@ function Spotify({ Event }) {
   const User = useContext(UserContext);
 
   const CLIENT_ID = "6df25cbf97c84312b2d1499c49ff5611";
-  // const REDIRECT_URI = `http://localhost:3001/event/${Event.eventGlobal.code}`;
+  //   const REDIRECT_URI = `http://localhost:3001/event/${Event.eventGlobal.code}`;
   // const REDIRECT_URI = `http://localhost:3001`;
   // const REDIRECT_URI = `http://localhost:3001`;
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize?";
