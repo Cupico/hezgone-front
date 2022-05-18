@@ -1,8 +1,20 @@
 import { useContext, useEffect, useState } from "react";
+
 import { Box,Button, Grid, Avatar, Text, Heading, Badge, Flex, SimpleGrid, Center } from "@chakra-ui/react";
 import {BsFillGeoAltFill, BsLink, BsFillCalendarWeekFill, BsEyeFill, BsMusicNoteBeamed} from 'react-icons/bs'
 import { BiDrink, BiCar } from "react-icons/bi";
 import {FaWallet} from "react-icons/fa"
+
+import {
+  Box,
+  Grid,
+  Avatar,
+  Text,
+  Heading,
+  Badge,
+  Button,
+} from "@chakra-ui/react";
+
 import { useParams } from "react-router";
 
 import { UserContext } from "../context/User";
@@ -16,6 +28,7 @@ import MapWrapper from "../Components/Map/MapWrapper";
 import Spotify from "../Components/Spotify";
 import UserCard from "../Components/UserCard";
 import Chats from "../Components/Chats";
+import Spotify from "../Components/Spotify";
 
 function ActualEvent() {
   const [page, setPage] = useState({ event: true, spotify: false });
@@ -32,6 +45,7 @@ function ActualEvent() {
       Chat.setChatGlobal(data);
     });
 
+
     socket.on("refreshSpotify", function (data) {
       Spot.setSpotifyGlobal(data);
     });
@@ -41,6 +55,7 @@ function ActualEvent() {
 
     // Get CHAT
     socket.emit("chat", { room: room.id || Event.eventGlobal.code });
+    
 
     return () => {
       socket.off("message");
@@ -50,6 +65,7 @@ function ActualEvent() {
     };
   }, []);
 
+
   return (
     <Box>
       <Chats />
@@ -58,6 +74,7 @@ function ActualEvent() {
         <Box>
           <Box marginBottom="20px">
             <Button
+
             colorScheme="gray"
             onClick={() => setPage({ event: true, spotify: false })}
             marginRight="10px"
@@ -127,39 +144,85 @@ function ActualEvent() {
                 </Badge>
               </Box>
 
-              <Box display="flex" alignItems={"center"} marginBottom={8}>
-                <Avatar
-                  name={`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}
-                  src="https://bit.ly/broken-link"
-                  mr={8}
-                />
-                <Text
-                  mr={20}
-                >{`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}</Text>
-              </Box>
+              colorScheme="gray"
+              onClick={() => setPage({ event: true, spotify: false })}
+              marginRight="10px"
+            >
+              Evènement
+            </Button>
+            <Button
+              colorScheme="green"
+              onClick={() => setPage({ event: false, spotify: true })}
+            >
+              Music
+            </Button>
+          </Box>
 
+
+          {page.spotify && <Spotify Event={Event} />}
+
+          {page.event && (
+            <Box p={0} display="flex" justifyContent={"space-between"} mb={14}>
               <Box
                 display="flex"
                 flexDirection="column"
-                height="450px"
-                width="100%"
+                w="50%"
+                paddingRight={10}
+                paddingY={2}
               >
-                <MapWrapper />
+                <Box display="flex" alignItems={"center"} marginBottom={8}>
+                  <Heading
+                    fontWeight={600}
+                    fontSize={{ base: "2xl", sm: "4xl", md: "5xl" }}
+                  >
+                    {Event.eventGlobal.name}
+                  </Heading>
+
+                  <Badge
+                    colorScheme="purple"
+                    fontSize={"1.5rem"}
+                    marginLeft="auto"
+                    marginTop={2}
+                  >
+                    {Event.eventGlobal.code}
+                  </Badge>
+                </Box>
+
+                <Box display="flex" alignItems={"center"} marginBottom={8}>
+                  <Avatar
+                    name={`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}
+                    src="https://bit.ly/broken-link"
+                    mr={8}
+                  />
+                  <Text
+                    mr={20}
+                  >{`${Event.eventGlobal.members[0].name} ${Event.eventGlobal.members[0].last_name}`}</Text>
+                </Box>
+
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  height="450px"
+                  width="100%"
+                >
+                  <MapWrapper />
+                </Box>
+              </Box>
+
+              <Box w="50%" paddingLeft={10} paddingY={0}>
+                <Grid
+                  templateColumns={`repeat(${Event.eventGlobal.members.length}, 1fr)`}
+                  gap={20}
+                >
+                  {Event.eventGlobal.members.map((e, i) => (
+                    <UserCard key={i} user={e} />
+                  ))}
+                </Grid>
               </Box>
             </Box>
-
-            <Box w="50%" paddingLeft={10} paddingY={0}>
-              <Grid
-                templateColumns={`repeat(${Event.eventGlobal.members.length}, 1fr)`}
-                gap={20}
-              >
-                {Event.eventGlobal.members.map((e, i) => (
-                  <UserCard key={i} user={e} />
-                ))}
-              </Grid>
-            </Box>
-            
           </Box>
+          )}
+
         </Box>
         )}
         </Box>

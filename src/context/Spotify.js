@@ -13,4 +13,6 @@ export const GlobalSpotify = ({ children }) => {
   );
 };
 
+
 export default GlobalSpotify;
+

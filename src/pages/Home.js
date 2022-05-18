@@ -11,7 +11,6 @@ import CreateEvent from "../Components/CreateEvent";
 import JoinEvent from "../Components/JoinEvent";
 import EventCard from "../Components/EventCard";
 
-
 function Home() {
   const User = useContext(UserContext);
   const Event = useContext(EventContext);
@@ -20,31 +19,53 @@ function Home() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
-      navigate("connexion");
-    }
+    // if (User.userGlobal._id === "" || User.userGlobal._id === undefined) {
+    //   navigate("connexion");
+    // }
 
     Event.setEventGlobal([]);
-
   }, [User]);
 
+  useEffect(() => {
+    let token;
+    const hash = window.location.hash;
+    if (hash.includes("access_token")) {
+      token = hash
+        .substring(1)
+        .split("&")
+        .find((el) => el.startsWith("access_token"))
+        .split("=")[1];
+      console.log("tok", token);
+
+      localStorage.setItem("spotifyToken", JSON.stringify(token));
+      console.log("NEW TOKEN", token)
+    }
+  }, []);
+
+
   return (
-    <Box maxW="7xl" mx={'auto'} pt={5} mb={100} px={{ base: 2, sm: 12, md: 17 }}>
+    <Box
+      maxW="7xl"
+      mx={"auto"}
+      pt={5}
+      mb={100}
+      px={{ base: 2, sm: 12, md: 17 }}
+    >
       <Hero />
       <CreateEvent />
       <JoinEvent />
 
-        <Heading
-          lineHeight={1.1}
-          fontWeight={600}
-          fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
-          textAlign="center"
-        >
-          <Text as={"h2"} position={"relative"}>
-            Vos évènements
-          </Text>
-          <br />
-        </Heading>
+      <Heading
+        lineHeight={1.1}
+        fontWeight={600}
+        fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
+        textAlign="center"
+      >
+        <Text as={"h2"} position={"relative"}>
+          Vos évènements
+        </Text>
+        <br />
+      </Heading>
 
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
         {User.userGlobal.events &&
