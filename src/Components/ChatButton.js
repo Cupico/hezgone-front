@@ -74,6 +74,7 @@ function HomeButton() {
         height="50px"
         alignItems="center"
         onClick={() => openChat()}
+        cursor="pointer"
       >
         <BsFillChatLeftDotsFill size={24} color="#fff" />
       </Center>
@@ -81,8 +82,8 @@ function HomeButton() {
         <DrawerOverlay />
         <DrawerContent bg={["#1A202C", "#1A202C"]}>
           <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px" align="center">
-            Chat
+          <DrawerHeader borderBottomWidth="1px" align="center" color="#69CEB7">
+          {Event.eventGlobal.name} chat
           </DrawerHeader>
           <DrawerBody>
             <div
@@ -102,7 +103,7 @@ function HomeButton() {
                     key={i}
                     bg={"white"}
                     color="black"
-                    width={"100%"}
+                    width={"70%"}
                     boxShadow={"md"}
                     marginY={6}
                     marginLeft={User.userGlobal._id === e.id ? "auto" : 3}
@@ -110,16 +111,19 @@ function HomeButton() {
                     padding={3}
                   >
                     <Box display="flex" alignItems={"center"}>
-                      <Avatar
-                        size={"sm"}
-                        src={"https://bit.ly/tioluwani-kolawole"}
-                        alt={"Author"}
-                        css={{
-                          border: "2px solid white",
-                        }}
-                        marginRight={2}
-                        fontWeight={"light"}
-                      />
+
+                    <Avatar
+                              name={`${e.name} ${e.last_name}`}
+                              src="https://bit.ly/broken-link"
+                              mr={6}
+                              size={"sm"}
+                              alt={"Author"}
+                              css={{
+                                border: "2px solid white",
+                              }}
+                              marginRight={2}
+                              fontWeight={"light"}
+                            />
                       <Text fontWeight={"bold"}>{e.name}</Text>
                     </Box>
                     <p>{e.message}</p>

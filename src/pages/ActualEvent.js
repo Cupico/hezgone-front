@@ -28,7 +28,7 @@ import {
   BsEyeFill,
   BsMusicNoteBeamed,
 } from "react-icons/bs";
-import { BiDrink, BiCar } from "react-icons/bi";
+import { BiDrink, BiCar, BiTimeFive } from "react-icons/bi";
 import { FaWallet } from "react-icons/fa";
 
 import { useParams } from "react-router";
@@ -121,14 +121,26 @@ function ActualEvent() {
                     {Event.eventGlobal.name}
                   </Heading>
 
-                  <BsFillGeoAltFill
-                    style={{
-                      display: "initial",
-                      color: "#A7DACE",
-                      marginRight: "5px",
-                    }}
-                  />
-                  {Event.eventGlobal.adresse}
+                  <Box display="flex" alignItems={"center"}>
+                    <BsFillGeoAltFill
+                      style={{
+                        display: "initial",
+                        color: "#A7DACE",
+                        marginRight: "5px",
+                      }}
+                    />
+                    <span style={{ marginRight: "10px" }}>
+                      {Event.eventGlobal.adresse},
+                    </span>{" "}
+                    <BiTimeFive
+                      style={{
+                        display: "initial",
+                        color: "#A7DACE",
+                        marginRight: "5px",
+                      }}
+                    />{" "}
+                    {Event.eventGlobal.time}
+                  </Box>
                   <Text mt={2}>
                     Code :{" "}
                     <Badge colorScheme="purple" fontSize={"lg"}>
@@ -204,7 +216,7 @@ function ActualEvent() {
                   />
                 </Box>
               </Flex>
-              <SimpleGrid columns={2} spacingY={"20px"} spacingX={"10px"}>
+              <SimpleGrid columns={2} spacingY={"20px"} spacingX={"10px"} >
                 <Center
                   height={"150px"}
                   width={"150px"}
@@ -212,6 +224,7 @@ function ActualEvent() {
                   rounded={"lg"}
                   flexDirection="column"
                   onClick={() => setPage({ event: false, spotify: true })}
+                  cursor="pointer"
                 >
                   <BsMusicNoteBeamed size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -224,6 +237,7 @@ function ActualEvent() {
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
                   rounded={"lg"}
                   flexDirection="column"
+                  cursor="pointer"
                 >
                   <FaWallet size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -236,6 +250,7 @@ function ActualEvent() {
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
                   rounded={"lg"}
                   flexDirection="column"
+                  cursor="pointer"
                 >
                   <BiDrink size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -248,6 +263,7 @@ function ActualEvent() {
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
                   rounded={"lg"}
                   flexDirection="column"
+                  cursor="pointer"
                 >
                   <BiCar size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -274,12 +290,9 @@ function ActualEvent() {
                           justifyContent={"space-between"}
                           marginBottom={8}
                           key={i}
-      
+              
                         >
-                          <Box 
-                                display="flex"
-                                alignItems={"center"}
-                                >
+                          <Box display="flex" alignItems={"center"}>
                             <Avatar
                               name={`${e.name} ${e.last_name}`}
                               src="https://bit.ly/broken-link"
@@ -303,13 +316,27 @@ function ActualEvent() {
             </Box>
           )}
 
-          <Flex m={6}>
-            <Box width="50px" />
-            <Spacer />
-            <HomeButton />
-            <Spacer />
-            <ChatButton />
-          </Flex>
+          <Box height="100px">
+            <Flex
+              borderTop="1px solid #69CEB7"
+              position="fixed"
+              bottom="0px"
+              height="100px"
+              width={"100%"}
+              my="auto"
+              right="0"
+              left="0"
+              alignItems={"center"}
+              justifyContent={"space-around"}
+              backgroundColor="#1A202C"
+            >
+              {/* <Box width="50px" /> */}
+
+              <HomeButton />
+
+              <ChatButton />
+            </Flex>
+          </Box>
         </Box>
       )}
     </Box>

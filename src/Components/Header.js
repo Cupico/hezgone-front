@@ -11,7 +11,7 @@ const NavBar = (props) => {
 
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <NavBarContainer {...props}>
+    <NavBarContainer {...props}  borderBottom="1px solid #69CEB7">
       <Logo
         w="100px"
         color={["#69CEB7", "#69CEB7", "#69CEB7", "#69CEB7"]}
@@ -136,7 +136,7 @@ const NavBarContainer = ({ children, ...props }) => {
       mb={0}
       paddingLeft={"5%"}
       paddingRight={"5%"}
-      paddingY={7}
+      paddingY={2}
       bg={["transparent", "transparent", "transparent", "transparent"]}
       color={["#69CEB7", "#69CEB7", "#69CEB7", "#69CEB7"]}
       {...props}

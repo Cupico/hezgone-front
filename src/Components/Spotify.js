@@ -5,14 +5,19 @@ import {
   Button,
   InputGroup,
   Input,
-  InputRightAddon,
   Heading,
   Link,
   Text,
   Image,
+  Flex,
+  Stack,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import aucune_playlist_dark from "../assets/Aucune_playlist_dark.png";
 import { SearchIcon, DeleteIcon, SmallAddIcon } from "@chakra-ui/icons";
+
+import { MdLibraryMusic } from "react-icons/md";
 
 import axios from "axios";
 
@@ -157,26 +162,85 @@ function Spotify({ Event }) {
 
   const renderArtists = () => {
     return artists.map((artist) => (
-      <Box key={artist.id} marginBottom="50px">
-        <img
-          src={artist.album.images[0].url}
-          alt=""
-          style={{ height: "200px", width: "200px" }}
-        />
-        <p>
-          {artist.name} - {artist.artists[0].name}
-        </p>
+      <Box
+        bg={"white"}
+        boxShadow={"2xl"}
+        rounded={"md"}
+        overflow={"hidden"}
+        position={"relative"}
+        cursor="pointer"
+        transition={"all 0.3s"}
+        _hover={{
+          transform: "translateY(-6px)",
+        }}
+      >
+        <Flex justifyContent={"center"} alignItems="center">
+          <Box h={"200px"} brightness="40%">
+            <Image
+              src={artist.album.images[0].url}
+              alt={"Music"}
+              w={"full"}
+              objectFit={"cover"}
+              objectPosition={"top"}
+              filter="auto"
+              brightness="60%"
+              _hover={{
+                brightness: "90%",
+              }}
+            />
+          </Box>
 
-        <Button
-          colorScheme="teal"
-          variant="solid"
-          onClick={() =>
-            addTrack(artist.name, artist.id, User.userGlobal.username)
-          }
-        >
-          <SmallAddIcon />
-        </Button>
+          <Box position={"absolute "} pointerEvents={"none"}>
+            <Stack spacing={0} align={"center"}>
+              <Heading
+                fontSize={"xl"}
+                fontWeight={500}
+                fontFamily={"body"}
+                textTransform={"capitalize"}
+              >
+                {artist.name}
+              </Heading>
+              <Text color={"white"} pt={2}>
+                {artist.artists[0].name}
+              </Text>
+            </Stack>
+          </Box>
+
+          <Button
+              colorScheme="teal"
+              variant="solid"
+              onClick={() =>
+                addTrack(artist.name, artist.id, User.userGlobal.username)
+              }
+              position="absolute"
+              bottom="5"
+              right="5"
+            >
+              <SmallAddIcon />
+            </Button>
+
+        </Flex>
       </Box>
+      // <Box key={artist.id} marginBottom="50px">
+      //   <img
+      //     src={artist.album.images[0].url}
+      //     alt=""
+      //     style={{ height: "200px", width: "200px" }}
+      //   />
+      //   <p>
+      //     {artist.name} - {artist.artists[0].name}
+      //   </p>
+
+      //   <Button
+      //     colorScheme="teal"
+      //     variant="solid"
+      //     onClick={() =>
+      //       addTrack(artist.name, artist.id, User.userGlobal.username)
+      //     }
+      //   >
+      //     <SmallAddIcon />
+      //   </Button>
+      // </Box>
     ));
   };
 
@@ -193,6 +257,22 @@ function Spotify({ Event }) {
 
       // GET USER ID
       let user_id;
+
+      // GET USER ID
+      var config_0 = {
+        method: "get",
+        url: `https://api.spotify.com/v1/me`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      // GET SPOTIFY
+      await axios(config_0)
+        .then((res) => {
+          user_id = res.data.id;
+        })
+        .catch((err) => alert("Veuillez reconnectez le compte à Spotify"));
 
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
         headers: {
@@ -215,16 +295,14 @@ function Spotify({ Event }) {
 
       // GET SPOTIFY
       await axios(config)
-      .then((res) => {
-        const response = res.data.id;
-        socket
-          .emit("spotify", {
+        .then((res) => {
+          const response = res.data.id;
+          socket.emit("spotify", {
             room: Spot.spotifyGlobal.room,
             playlist_id: response,
-          })
-          
-      })
-      .catch((err) => alert("Veuillez reconnectez le compte à Spotify"));
+          });
+        })
+        .catch((err) => alert("Veuillez reconnectez le compte à Spotify"));
     }
   };
 
@@ -256,25 +334,25 @@ function Spotify({ Event }) {
   //   }
   // }, [Spot.spotifyGlobal.playlist_id]);
 
-  console.log("la ici global spot", Spot.spotifyGlobal.playlist_id);
-  console.log("token", token);
+  console.log("tok?", token);
 
   return (
     <Box px={"5%"}>
-      <Heading mb={4}>Playlist</Heading>
-      {(Spot.spotifyGlobal.playlist_id === "") && (
-        <Box>
-          <Image src={aucune_playlist_dark} alt="aucune_playlist" />
-          <Box mb={5}>
-            <Text fontWeight="bold" fontSize="large" align="center">
-              Connecte ton compte Spotify
-            </Text>
-            <Text align="center">
-              Pour pouvoir créer une playlist collaborative !
-            </Text>
+      {/* <Heading mb={4}>Playlist</Heading> */}
+      {Spot.spotifyGlobal.playlist_id === "" &&
+        Spot.spotifyGlobal.token === "" && (
+          <Box>
+            <Image src={aucune_playlist_dark} alt="aucune_playlist" mx="auto" />
+            <Box mb={5}>
+              <Text fontWeight="bold" fontSize="large" align="center">
+                Connecte ton compte Spotify
+              </Text>
+              <Text align="center">
+                Pour pouvoir créer une playlist collaborative !
+              </Text>
+            </Box>
           </Box>
-        </Box>
-      )}
+        )}
       <Link
         // href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${"token"}&scope=playlist-modify-public`}
         href={urlTokenSpotify}
@@ -312,123 +390,132 @@ function Spotify({ Event }) {
           </svg>
         </Box>
       </Link>
-      {Spot.spotifyGlobal.token !== "" ||
-      JSON.parse(localStorage.getItem("spotifyToken")) !== "" ? (
-        <div>
-          {Spot.spotifyGlobal.playlist_id === "" && token !== "" && (
-            <Box mt={6}>
-              <Input
-                name={"name"}
-                value={createNewPlaylist.name}
-                onChange={nouvellePlaylist}
-                placeholder="Nom de la playlist"
-                type={"text"}
-                mb={2}
-              />
-              <Input
-                type="text"
-                name="description"
-                onChange={nouvellePlaylist}
-                value={createNewPlaylist.description}
-                placeholder="Description (facultatif)"
-                mb={4}
-              />
-              <Button
-                colorScheme="teal"
-                backgroundColor="#69CEB7"
-                color="white"
-                onClick={createPlaylist}
-              >
-                Créer une playlist
-              </Button>
-            </Box>
-          )}
-          <br />
-          {Spot.spotifyGlobal.playlist_id && (
-            <Box>
-              <Box>
-                <iframe
-                  src={`https://open.spotify.com/embed/playlist/${Spot.spotifyGlobal.playlist_id}?utm_source=generator`}
-                  width="100%"
-                  height="1%"
-                  frameBorder="0"
-                  allowFullScreen=""
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                ></iframe>
-              </Box>
-
-              <Box marginBottom="50px" backgroundColor="black">
-                {Spot.spotifyGlobal &&
-                  Spot.spotifyGlobal.music &&
-                  Spot.spotifyGlobal.music.length > 0 &&
-                  Spot.spotifyGlobal.music.map((e, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "10px 20px",
-                        color: "white",
-                      }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <Button
-                          variant="solid"
-                          onClick={() => deleteTrack(e.id)}
-                          style={{ backgroundColor: "#C53030" }}
-                        >
-                          <DeleteIcon />
-                        </Button>
-                        <p style={{ marginLeft: "10px" }}>{e.name}</p>
-                      </div>
-                      <p>ajouté par {e.username}</p>
-                    </div>
-                  ))}
-              </Box>
-
-              <Box>
-                <Heading size="lg" mb={4}>
-                  Ajouter une musique à la playlist
-                </Heading>
-                <form
-                  onSubmit={searchArtists}
-                  style={{
-                    color: "black",
-                    position: "relative",
-                    marginBottom: "20px",
-                  }}
+      {Spot.spotifyGlobal.token !== "" &&
+        JSON.parse(localStorage.getItem("spotifyToken")) !== "" && (
+          <div>
+            {Spot.spotifyGlobal.playlist_id === "" && token !== "" && (
+              <Box mt={6}>
+                <Input
+                  name={"name"}
+                  value={createNewPlaylist.name}
+                  onChange={nouvellePlaylist}
+                  placeholder="Nom de la playlist"
+                  type={"text"}
+                  mb={2}
+                />
+                <Input
+                  type="text"
+                  name="description"
+                  onChange={nouvellePlaylist}
+                  value={createNewPlaylist.description}
+                  placeholder="Description (facultatif)"
+                  mb={4}
+                />
+                <Button
+                  colorScheme="teal"
+                  backgroundColor="#69CEB7"
+                  color="white"
+                  onClick={createPlaylist}
                 >
-                  <InputGroup size="md">
-                    <Input
-                      onChange={(e) => setSearchKey(e.target.value)}
-                      rounded="0"
-                      placeholder="Rechercher une musique dans Spotify..."
-                      focusBorderColor="blue.500"
-                      variant="outline"
-                      color="black"
-                      backgroundColor="gray.400"
-                    />
-                    <InputRightAddon
-                      children={
-                        <Button
-                          type={"submit"}
-                          width="100%"
-                          height="100%"
-                          rightIcon={<SearchIcon />}
-                        />
-                      }
-                    />
-                  </InputGroup>
-                </form>
+                  Créer une playlist
+                </Button>
               </Box>
-            </Box>
-          )}
-        </div>
-      ) : (
-        <p>Please login</p>
-      )}
-      {renderArtists()}
+            )}
+            <br />
+            {Spot.spotifyGlobal.playlist_id && (
+              <Box>
+                <Box>
+                  <iframe
+                    src={`https://open.spotify.com/embed/playlist/${Spot.spotifyGlobal.playlist_id}?utm_source=generator`}
+                    width="100%"
+                    height="1%"
+                    frameBorder="0"
+                    allowFullScreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  ></iframe>
+                </Box>
+
+                <Box marginBottom="50px" backgroundColor="black">
+                  {Spot.spotifyGlobal &&
+                    Spot.spotifyGlobal.music &&
+                    Spot.spotifyGlobal.music.length > 0 &&
+                    Spot.spotifyGlobal.music.map((e, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          padding: "10px 20px",
+                          color: "white",
+                        }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <Button
+                            variant="solid"
+                            onClick={() => deleteTrack(e.id)}
+                            style={{ backgroundColor: "#C53030" }}
+                          >
+                            <DeleteIcon />
+                          </Button>
+                          <p style={{ marginLeft: "10px" }}>{e.name}</p>
+                        </div>
+                        <p>ajouté par {e.username}</p>
+                      </div>
+                    ))}
+                </Box>
+
+                <Box>
+                  <Flex>
+                    <MdLibraryMusic
+                      style={{
+                        fontSize: "30px",
+                        marginTop: "5px",
+                        marginRight: "10px",
+                      }}
+                    />
+                    <Heading size="lg" mb={4} mr={4}>
+                      Ajouter une musique à la playlist
+                    </Heading>
+                  </Flex>
+                  <form
+                    onSubmit={searchArtists}
+                    style={{
+                      color: "black",
+                      position: "relative",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <InputGroup size="md">
+                      <Input
+                        onChange={(e) => setSearchKey(e.target.value)}
+                        rounded="lg"
+                        placeholder="Rechercher une musique dans Spotify..."
+                        focusBorderColor="blue.500"
+                        variant="outline"
+                        color="black"
+                        backgroundColor="gray.400"
+                        width="50%"
+                        height="40px"
+                        marginRight={"10px"}
+                      />
+
+                      <Button
+                        type={"submit"}
+                        width="50px"
+                        height="40px"
+                        rightIcon={<SearchIcon />}
+                      />
+                    </InputGroup>
+                  </form>
+                </Box>
+              </Box>
+            )}
+          </div>
+        )}
+      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+        {renderArtists()}
+      </Grid>
     </Box>
   );
 }

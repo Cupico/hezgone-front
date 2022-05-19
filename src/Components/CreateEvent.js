@@ -45,7 +45,6 @@ function CreateEvent() {
       .catch((err) => console.log(err));
   };
 
-  console.log(infosEvent)
 
   return (
     <Container maxW={"7xl"}>
