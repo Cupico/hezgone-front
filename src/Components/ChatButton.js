@@ -55,8 +55,15 @@ function HomeButton() {
 
   const openChat = () => {
     socket.emit("chat", { room: Event.eventGlobal.code });
-    setChatVisible((prevState) => !prevState);
+    onOpen();
   };
+
+  useEffect(() => {
+    if (document.querySelector("#ui-chat")) {
+      document.querySelector("#ui-chat").scrollTop =
+        document.querySelector("#ui-chat").scrollHeight;
+    }
+  }, [Chat.chatGlobal.chat]);
 
   return (
     <>
@@ -66,7 +73,7 @@ function HomeButton() {
         width="50px"
         height="50px"
         alignItems="center"
-        onClick={onOpen}
+        onClick={() => openChat()}
       >
         <BsFillChatLeftDotsFill size={24} color="#fff" />
       </Center>
@@ -119,11 +126,7 @@ function HomeButton() {
                   </Box>
                 ))}
             </div>
-            <Box
-              display="flex"
-              height={"50px"}
-              bg={"#1A202C"}
-            >
+            <Box display="flex" height={"50px"} bg={"#1A202C"}>
               <Box width={"100%"} bg={"#1A202C"}>
                 <InputGroup>
                   <Input

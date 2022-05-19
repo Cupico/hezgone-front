@@ -40,10 +40,7 @@ function Register() {
   const sendRegister = (e) => {
     register(userRegister)
       .then((res) => {
-
-        if(res){
-          navigate("connexion")
-        }
+          navigate("/connexion", {replace:true})
       })
       .catch((err) => console.log(err));
   };
@@ -151,7 +148,7 @@ function Register() {
       </Stack>
       <Box>
         Vous avez déjà un comtpe ?{" "}
-        <Link to={"connexion"}>
+        <Link to={"/connexion"}>
           <span style={{color: "#69CEB7"}}>Connexion</span>
         </Link>
       </Box>

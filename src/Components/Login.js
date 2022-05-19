@@ -139,7 +139,7 @@ function Login() {
       </Stack>
       <Box>
         Vous êtes nouveau ?{" "}
-        <Link to={"inscription"}>
+        <Link to={"/inscription"}>
           <span style={{color: "#69CEB7"}}>Insciption</span>
         </Link>
       </Box>
