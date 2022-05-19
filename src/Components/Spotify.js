@@ -197,6 +197,7 @@ function Spotify({ Event }) {
                 fontWeight={500}
                 fontFamily={"body"}
                 textTransform={"capitalize"}
+                color={"white"}
               >
                 {artist.name}
               </Heading>
@@ -513,7 +514,7 @@ function Spotify({ Event }) {
             )}
           </div>
         )}
-      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+      <Grid templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" } } gap={6}>
         {renderArtists()}
       </Grid>
     </Box>
