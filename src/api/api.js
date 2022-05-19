@@ -9,9 +9,7 @@ export const endpoint = "http://localhost:3000";
 
 export const REDIRECT_URI = `http://localhost:3001`;
 
-
 export const socket = io(endpoint);
-
 
 export const register = async (userRegister) => {
   return await axios
@@ -29,11 +27,10 @@ export const login = async (userLogin) => {
 
 export const createEvent = async (event, id) => {
   return await axios
-    .post(`${endpoint}/event/create`, {event, id})
+    .post(`${endpoint}/event/create`, { event, id })
     .then((res) => res.data)
     .catch((error) => error);
 };
-
 
 // export const joinEvent = async (eventCode, id) => {
 //   return await axios
@@ -43,7 +40,6 @@ export const createEvent = async (event, id) => {
 //     .then((res) => res.data)
 //     .catch((error) => error);
 // };
-
 
 export const getEvent = async (eventCode) => {
   return await axios
