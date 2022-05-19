@@ -8,7 +8,7 @@ function EventCard(props) {
     const { event } = props
 
   return (
-    <Link to={`event/${event.code}`}>
+    <Link to={`/event/${event.code}`}>
       <Flex
       columns={3}
       spacing={'40px'}
