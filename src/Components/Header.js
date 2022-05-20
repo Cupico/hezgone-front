@@ -10,6 +10,8 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   const { colorMode, toggleColorMode } = useColorMode();
+
+
   return (
     <NavBarContainer {...props}>
       <Logo
