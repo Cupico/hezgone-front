@@ -3,9 +3,13 @@ import {BsFillGeoAltFill, BsClock, BsFillCalendarWeekFill} from 'react-icons/bs'
 
 import { Text, Box, Heading, Flex } from "@chakra-ui/react";
 
+import { date } from "../constant/date";
+
 function EventCard(props) {
 
     const { event } = props
+
+    console.log("event", event);
 
   return (
     <Link to={`/event/${event.code}`}>
@@ -17,8 +21,8 @@ function EventCard(props) {
       <Box height='100%' p={4} width={"100px"}>
         <Box fontWeight={'bold'} fontSize={'2xl'} height='100%' pt={4} pb={4} bg={"#69CEB7"} style={{textAlign: "center"}} rounded={10} >
           <BsFillCalendarWeekFill style={{color: "#fff", display: 'initial'}} />
-          <Heading color={'#fff'}>05</Heading>
-          <Text color={'#fff'} fontSize={'md'}>Fev.</Text>
+          <Heading color={'#fff'}>{event.date && event.date.substring(5).split("-")[1]} </Heading>
+          <Text color={'#fff'} fontSize={'md'}>{event.date && date[event.date.substring(5).split("-")[0]]} </Text>
         </Box>
       </Box>
       <Box fontSize={'md'} fontWeight={'medium'} p={4} pl={5} width={'60%'}>
@@ -34,7 +38,7 @@ function EventCard(props) {
       </Box>
       <Box fontSize={'2xl'} fontWeight={'medium'} height='100%' p={4} mt={8} style={{textAlign: "center"}}>
         <BsClock style={{display: "initial", color: "#A7DACE", height: "30px"}} />
-        <Text fontSize={'md'} color={'#A7DACE'}>20h30</Text>
+        <Text fontSize={'md'} color={'#A7DACE'}>{event.time}</Text>
       </Box>
     </Flex>
     </Link>

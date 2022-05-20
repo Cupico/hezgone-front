@@ -24,6 +24,7 @@ function CreateEvent() {
     name: "",
     adresse: "",
     time: "",
+    date: ""
   });
   const User = useContext(UserContext);
 
@@ -43,6 +44,7 @@ function CreateEvent() {
       })
       .catch((err) => console.log(err));
   };
+
 
   return (
     <Container maxW={"7xl"}>
@@ -145,6 +147,13 @@ function CreateEvent() {
               onChange={infoEvent}
               placeholder="Heure du début de l'évènement"
               type={"text"}
+            />
+              <Input
+              name={"date"}
+              value={infosEvent.date}
+              onChange={infoEvent}
+              placeholder="Date de l'évènement"
+              type={"date"}
             />
             <Button
               color={"white"}

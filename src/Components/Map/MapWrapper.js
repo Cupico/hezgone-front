@@ -4,6 +4,8 @@ import MyMapComponent from "./MyMapComponent";
 
 /*
   key : AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4;
+
+  final key : AIzaSyAohBsg_hdqEI8MYsoj_yV6qdseghMIzu4
 */
 
 const render = (status) => {
@@ -14,7 +16,7 @@ const render = (status) => {
 
 const MapWrapper = () => {
   return (
-    <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"} render={render}>
+    <Wrapper apiKey={"AIzaSyAohBsg_hdqEI8MYsoj_yV6qdseghMIzu4"} render={render}>
       <MyMapComponent />
     </Wrapper>
   );

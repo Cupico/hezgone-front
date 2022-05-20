@@ -1,13 +1,13 @@
 import axios from "axios";
 import io from "socket.io-client";
 
-//export const endpoint = "https://back-devlab-hero.herokuapp.com";
+export const endpoint = "https://back-devlab-hero.herokuapp.com";
 
-export const endpoint = "http://localhost:3000";
+// export const endpoint = "http://localhost:3000"
 
-// export const REDIRECT_URI = "https://front-devla-hero.herokuapp.com";
+export const REDIRECT_URI = "https://front-devla-hero.herokuapp.com";
 
-export const REDIRECT_URI = `http://localhost:3001`;
+// export const REDIRECT_URI = `http://localhost:3001`;
 
 export const socket = io(endpoint);
 
@@ -34,7 +34,7 @@ export const createEvent = async (event, id) => {
 
 // export const joinEvent = async (eventCode, id) => {
 //   return await axios
-//     .get(`${endpoint}/event/join/${eventCode.code}`, { params: {
+//     .get(`${endpoint}/event/join/${evendetCode.code}`, { params: {
 //     id: id
 //   }})
 //     .then((res) => res.data)

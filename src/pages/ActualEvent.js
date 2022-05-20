@@ -5,6 +5,7 @@ import {
   Button,
   Grid,
   Avatar,
+  Badge,
   Text,
   Heading,
   Spacer,
@@ -27,7 +28,7 @@ import {
   BsEyeFill,
   BsMusicNoteBeamed,
 } from "react-icons/bs";
-import { BiDrink, BiCar } from "react-icons/bi";
+import { BiDrink, BiCar, BiTimeFive } from "react-icons/bi";
 import { FaWallet } from "react-icons/fa";
 
 import { useParams } from "react-router";
@@ -44,6 +45,8 @@ import Spotify from "../Components/Spotify";
 import UserCard from "../Components/UserCard";
 import ChatButton from "../Components/ChatButton";
 import HomeButton from "../Components/HomeButton";
+
+import { date } from "../constant/date";
 
 function ActualEvent() {
   const [page, setPage] = useState({ event: true, spotify: false });
@@ -84,7 +87,7 @@ function ActualEvent() {
     <Box>
       {Event && Object.keys(Event.eventGlobal).length > 0 && (
         <Box>
-          <Box marginBottom="20px">
+          {/* <Box marginBottom="20px">
             <Button
               colorScheme="gray"
               onClick={() => setPage({ event: true, spotify: false })}
@@ -98,7 +101,7 @@ function ActualEvent() {
             >
               Music
             </Button>
-          </Box>
+          </Box> */}
 
           {page.spotify && (
             <Box m={6}>
@@ -108,7 +111,7 @@ function ActualEvent() {
 
           {page.event && (
             <Box m={6}>
-              <Box p={0} display="flex" justifyContent={"space-between"} mb={5}>
+              <Box p={0} display="flex" justifyContent={"space-between"}>
                 <Box>
                   <Heading
                     fontWeight={"bold"}
@@ -117,11 +120,33 @@ function ActualEvent() {
                   >
                     {Event.eventGlobal.name}
                   </Heading>
-                  <BsFillGeoAltFill
-                    style={{ display: "initial", color: "#A7DACE" }}
-                  />{" "}
-                  Paris
-                  <Text>Code : {Event.eventGlobal.code}</Text>
+
+                  <Box display="flex" alignItems={"center"}>
+                    <BsFillGeoAltFill
+                      style={{
+                        display: "initial",
+                        color: "#A7DACE",
+                        marginRight: "5px",
+                      }}
+                    />
+                    <span style={{ marginRight: "10px" }}>
+                      {Event.eventGlobal.adresse},
+                    </span>{" "}
+                    <BiTimeFive
+                      style={{
+                        display: "initial",
+                        color: "#A7DACE",
+                        marginRight: "5px",
+                      }}
+                    />{" "}
+                    {Event.eventGlobal.time}
+                  </Box>
+                  <Text mt={2}>
+                    Code :{" "}
+                    <Badge colorScheme="purple" fontSize={"lg"}>
+                      {Event.eventGlobal.code}
+                    </Badge>
+                  </Text>
                 </Box>
                 <Box
                   height="100%"
@@ -143,10 +168,10 @@ function ActualEvent() {
                       style={{ color: "#fff", display: "initial" }}
                     />
                     <Heading fontWeight={"500"} color={"#fff"} mt={-3}>
-                      05
+                      {Event.eventGlobal.date.substring(5).split("-")[1]}
                     </Heading>
                     <Text color={"#fff"} fontSize={"md"} mt={-2}>
-                      Fev.
+                      {date[Event.eventGlobal.date.substring(5).split("-")[0]]}
                     </Text>
                   </Box>
                   <BsLink
@@ -191,7 +216,7 @@ function ActualEvent() {
                   />
                 </Box>
               </Flex>
-              <SimpleGrid columns={2} spacingY={"20px"} spacingX={"10px"}>
+              <SimpleGrid columns={2} spacingY={"20px"} spacingX={"10px"} >
                 <Center
                   height={"150px"}
                   width={"150px"}
@@ -199,6 +224,7 @@ function ActualEvent() {
                   rounded={"lg"}
                   flexDirection="column"
                   onClick={() => setPage({ event: false, spotify: true })}
+                  cursor="pointer"
                 >
                   <BsMusicNoteBeamed size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -211,6 +237,7 @@ function ActualEvent() {
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
                   rounded={"lg"}
                   flexDirection="column"
+                  cursor="pointer"
                 >
                   <FaWallet size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -223,6 +250,7 @@ function ActualEvent() {
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
                   rounded={"lg"}
                   flexDirection="column"
+                  cursor="pointer"
                 >
                   <BiDrink size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -235,6 +263,7 @@ function ActualEvent() {
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
                   rounded={"lg"}
                   flexDirection="column"
+                  cursor="pointer"
                 >
                   <BiCar size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -242,6 +271,9 @@ function ActualEvent() {
                   </Text>
                 </Center>
               </SimpleGrid>
+              <Box height="300px" my={8}>
+                <MapWrapper />
+              </Box>
               <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
                 <DrawerOverlay />
                 <DrawerContent>
@@ -255,14 +287,26 @@ function ActualEvent() {
                         <Box
                           display="flex"
                           alignItems={"center"}
+                          justifyContent={"space-between"}
                           marginBottom={8}
+                          key={i}
+              
                         >
-                          <Avatar
-                            name={`${e.name} ${e.last_name}`}
-                            src="https://bit.ly/broken-link"
-                            mr={8}
-                          />
-                          <Text mr={20}>{`${e.name} ${e.last_name}`}</Text>
+                          <Box display="flex" alignItems={"center"}>
+                            <Avatar
+                              name={`${e.name} ${e.last_name}`}
+                              src="https://bit.ly/broken-link"
+                              mr={6}
+                            />
+                            <Text>{`${e.name} ${e.last_name}`}</Text>
+                          </Box>
+                          <Text>
+                            {e.online ? (
+                              <Badge colorScheme="green">En ligne</Badge>
+                            ) : (
+                              <Badge colorScheme="red">Déconnecté</Badge>
+                            )}
+                          </Text>
                         </Box>
                       ))}
                     </Grid>
@@ -271,13 +315,28 @@ function ActualEvent() {
               </Drawer>
             </Box>
           )}
-          <Flex m={6}>
-            <Box width="50px" />
-            <Spacer />
-            <HomeButton />
-            <Spacer />
-            <ChatButton />
-          </Flex>
+
+          <Box height="100px">
+            <Flex
+              borderTop="1px solid #69CEB7"
+              position="fixed"
+              bottom="0px"
+              height="100px"
+              width={"100%"}
+              my="auto"
+              right="0"
+              left="0"
+              alignItems={"center"}
+              justifyContent={"space-around"}
+              backgroundColor="#1A202C"
+            >
+              {/* <Box width="50px" /> */}
+
+              <HomeButton />
+
+              <ChatButton />
+            </Flex>
+          </Box>
         </Box>
       )}
     </Box>
