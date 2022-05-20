@@ -61,7 +61,6 @@ function Login() {
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundColor="white"
       justifyContent="center"
       alignItems="center"
     >
@@ -117,6 +116,7 @@ function Login() {
                       h="1.75rem"
                       size="sm"
                       onClick={handleShowClick}
+                      color={"#000"}
                     >
                       {showPassword ? "Cacher" : "Voir"}
                     </Button>

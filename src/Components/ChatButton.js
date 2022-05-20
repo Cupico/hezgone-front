@@ -104,6 +104,7 @@ function HomeButton() {
                     bg={"white"}
                     color="black"
                     width={"70%"}
+                    rounded={"20px"}
                     boxShadow={"md"}
                     marginY={6}
                     marginLeft={User.userGlobal._id === e.id ? "auto" : 3}
