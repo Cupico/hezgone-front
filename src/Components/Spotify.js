@@ -211,7 +211,7 @@ function Spotify({ Event }) {
               colorScheme="teal"
               variant="solid"
               onClick={() =>
-                addTrack(artist.name, artist.id, User.userGlobal.username)
+                addTrack(artist.name, artist.id, User.userGlobal.name)
               }
               position="absolute"
               bottom="5"
@@ -461,7 +461,7 @@ function Spotify({ Event }) {
                           </Button>
                           <p style={{ marginLeft: "10px" }}>{e.name}</p>
                         </div>
-                        <p>ajouté par {e.username}</p>
+                        <p>ajouté par {e.name}</p>
                       </div>
                     ))}
                 </Box>

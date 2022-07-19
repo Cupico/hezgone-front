@@ -18,12 +18,11 @@ function Chats() {
 
   const [chatVisible, setChatVisible] = useState(false);
 
-  console.log("CHAT", Chat.chatGlobal);
 
   const sendMessage = () => {
     const message = {
       id: User.userGlobal._id,
-      name: User.userGlobal.username,
+      name: User.userGlobal.name,
       message: text,
     };
     socket.emit("chat", { room: Event.eventGlobal.code, message: message });

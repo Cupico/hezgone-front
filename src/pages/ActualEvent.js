@@ -37,19 +37,21 @@ import { UserContext } from "../context/User";
 import { EventContext } from "../context/Event";
 import { ChatContext } from "../context/Chat";
 import { SpotifyContext } from "../context/Spotify";
+import { RepartitionContext } from "../context/Repartition";
 
 import { socket } from "../api/api";
 
 import MapWrapper from "../Components/Map/MapWrapper";
 import Spotify from "../Components/Spotify";
-import UserCard from "../Components/UserCard";
+// import Repartition from "../Components/Repartition";
+import Repartition from "../Components/Repartition";
 import ChatButton from "../Components/ChatButton";
 import HomeButton from "../Components/HomeButton";
 
 import { date } from "../constant/date";
 
 function ActualEvent() {
-  const [page, setPage] = useState({ event: true, spotify: false });
+  const [page, setPage] = useState({ event: true, spotify: false, repartition: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const room = useParams();
@@ -58,6 +60,7 @@ function ActualEvent() {
   const Event = useContext(EventContext);
   const Chat = useContext(ChatContext);
   const Spot = useContext(SpotifyContext);
+  const repartition = useContext(RepartitionContext);
 
   useEffect(() => {
     socket.on("message", function (data) {
@@ -68,19 +71,24 @@ function ActualEvent() {
       Spot.setSpotifyGlobal(data);
     });
 
+
     // Enter in room
     socket.emit("room", { room: room.id, user: User.userGlobal._id });
 
     // Get CHAT
     socket.emit("chat", { room: room.id || Event.eventGlobal.code });
 
+;
+
+
     return () => {
       socket.off("message");
       socket.off("room");
       socket.off("chat");
       socket.off("refreshSpotify");
+      socket.off("repartition");
     };
-  }, []);
+  }, [socket]);
 
   //<Chats />
   return (
@@ -106,6 +114,12 @@ function ActualEvent() {
           {page.spotify && (
             <Box m={6}>
               <Spotify Event={Event} />
+            </Box>
+          )}
+
+          {page.repartition && (
+            <Box m={6}>
+              <Repartition Event={Event} />
             </Box>
           )}
 
@@ -223,7 +237,7 @@ function ActualEvent() {
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
                   rounded={"lg"}
                   flexDirection="column"
-                  onClick={() => setPage({ event: false, spotify: true })}
+                  onClick={() => setPage({ event: false, spotify: true, repartition: false })}
                   cursor="pointer"
                 >
                   <BsMusicNoteBeamed size={32} color="#69CEB7" />
@@ -251,6 +265,7 @@ function ActualEvent() {
                   rounded={"lg"}
                   flexDirection="column"
                   cursor="pointer"
+                  onClick={() => setPage({ event: false, spotify: false, repartition: true })}
                 >
                   <BiDrink size={32} color="#69CEB7" />
                   <Text fontWeight="bold" mt={3}>
@@ -290,7 +305,7 @@ function ActualEvent() {
                           justifyContent={"space-between"}
                           marginBottom={8}
                           key={i}
-              
+
                         >
                           <Box display="flex" alignItems={"center"}>
                             <Avatar
@@ -300,13 +315,6 @@ function ActualEvent() {
                             />
                             <Text>{`${e.name} ${e.last_name}`}</Text>
                           </Box>
-                          <Text>
-                            {e.online ? (
-                              <Badge colorScheme="green">En ligne</Badge>
-                            ) : (
-                              <Badge colorScheme="red">Déconnecté</Badge>
-                            )}
-                          </Text>
                         </Box>
                       ))}
                     </Grid>

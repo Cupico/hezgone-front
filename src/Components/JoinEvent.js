@@ -33,7 +33,7 @@ function JoinEvent() {
   };
 
   const handleJoinEvent = () => {
-    socket.emit("room", { room: codeEvent.code, user: User.userGlobal._id });
+    // socket.emit("room", { room: codeEvent.code, user: User.userGlobal._id });
     socket.emit("users", User.userGlobal._id);
     navigate(`event/${codeEvent.code}`);
 

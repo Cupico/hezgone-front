@@ -39,7 +39,7 @@ function CreateEvent() {
       .then((res) => {
         let event = res.event;
         // Context.setUserGlobal({...Context.userGlobal, event: event});
-        socket.emit("room", { room: event.code, user: User.userGlobal._id });
+        // socket.emit("room", { room: event.code, user: User.userGlobal._id });
         navigate(`event/${event.code}`);
       })
       .catch((err) => console.log(err));

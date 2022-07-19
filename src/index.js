@@ -13,6 +13,7 @@ import { ColorModeScript } from "@chakra-ui/react";
 
 import GlobalChat from "./context/Chat";
 import GlobalSpotify from "./context/Spotify";
+import GlobalRepartition from "./context/Repartition"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,11 +21,13 @@ ReactDOM.render(
       <GlobalEvent>
         <GlobalChat>
           <GlobalSpotify>
-            <ChakraProvider theme={customTheme}>
-              {/* <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"}> */}
-              <App />
-              {/* </Wrapper> */}
-            </ChakraProvider>
+            <GlobalRepartition>
+              <ChakraProvider theme={customTheme}>
+                {/* <Wrapper apiKey={"AIzaSyAs0HhkYNG6tqBluG6wG0VlV2oNc1VWJC4"}> */}
+                <App />
+                {/* </Wrapper> */}
+              </ChakraProvider>
+            </GlobalRepartition>
           </GlobalSpotify>
         </GlobalChat>
       </GlobalEvent>
