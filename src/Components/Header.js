@@ -1,8 +1,10 @@
 import React from "react";
-import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
-import {MoonIcon, SunIcon} from "@chakra-ui/icons"
+import { useContext } from "react";
+import { Link, Box, Flex, Text, Button, Stack, Avatar } from "@chakra-ui/react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons"
 import Logo from "./Logo";
 import { useColorMode } from "@chakra-ui/react";
+import { UserContext } from "../context/User";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -12,18 +14,20 @@ const NavBar = (props) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
 
+
+
   return (
-    <NavBarContainer {...props}  borderBottom="1px solid #69CEB7">
+    <NavBarContainer {...props} borderBottom="1px solid #69CEB7">
       <Logo
         w="100px"
         color={["#69CEB7", "#69CEB7", "#69CEB7", "#69CEB7"]}
       />
       <Button
-         onClick={toggleColorMode}
-         display={{base:"block", md:"none"}}
-        >
-          {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-        </Button>
+        onClick={toggleColorMode}
+        display={{ base: "block", md: "none" }}
+      >
+        {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+      </Button>
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
@@ -74,6 +78,8 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
 const MenuLinks = ({ isOpen }) => {
 
   const { colorMode, toggleColorMode } = useColorMode();
+  const User = useContext(UserContext)
+  console.log("user", User)
 
   return (
     <Box
@@ -87,10 +93,32 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
+        {User.userGlobal._id && <Box>
+          <Avatar
+            name={`${User.userGlobal.name} ${User.userGlobal.last_name}`}
+            src="https://bit.ly/broken-link"
+            mr={6}
+          />
+        </Box>}
+
+        {User.userGlobal._id && <MenuItem to="/connexion">
+          <Button
+            size="sm"
+            rounded="md"
+            color={["white", "white", "white", "white"]}
+            bg={["#69CEB7", "#69CEB7", "#69CEB7", "#69CEB7"]}
+            _hover={{
+              bg: ["#69CEB7", "#69CEB7", "#69CEB7", "#69CEB7"]
+            }}
+          >
+            Déconnexion
+          </Button>
+        </MenuItem>}
+
         <MenuItem to="/">Accueil</MenuItem>
         {/*<MenuItem to="/comment-ca-marche">Comment ça marche</MenuItem>
         <MenuItem to="/fonctionnalites">Fonctionnalités</MenuItem>*/}
-        <MenuItem to="/connexion">
+        {!User.userGlobal._id && <MenuItem to="/connexion">
           <Button
             size="sm"
             rounded="md"
@@ -102,8 +130,8 @@ const MenuLinks = ({ isOpen }) => {
           >
             Connexion
           </Button>
-        </MenuItem>
-        <MenuItem to="/inscription" isLast>
+        </MenuItem>}
+        {!User.userGlobal._id && <MenuItem to="/inscription" isLast>
           <Button
             size="sm"
             rounded="md"
@@ -115,10 +143,12 @@ const MenuLinks = ({ isOpen }) => {
           >
             Inscription
           </Button>
-        </MenuItem>
+        </MenuItem>}
+
+
         <Button
-         onClick={toggleColorMode}
-         display={{base:"none", md:"block"}}
+          onClick={toggleColorMode}
+          display={{ base: "none", md: "block" }}
         >
           {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
         </Button>

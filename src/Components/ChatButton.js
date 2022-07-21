@@ -52,8 +52,8 @@ function HomeButton() {
   };
 
   const openChat = () => {
-    socket.emit("chat", { room: Event.eventGlobal.code });
     onOpen();
+    socket.emit("chat", { room: Event.eventGlobal.code });
   };
 
   useEffect(() => {

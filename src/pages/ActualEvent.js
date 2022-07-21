@@ -37,7 +37,7 @@ import { UserContext } from "../context/User";
 import { EventContext } from "../context/Event";
 import { ChatContext } from "../context/Chat";
 import { SpotifyContext } from "../context/Spotify";
-import { RepartitionContext } from "../context/Repartition";
+
 
 import { socket } from "../api/api";
 
@@ -60,7 +60,6 @@ function ActualEvent() {
   const Event = useContext(EventContext);
   const Chat = useContext(ChatContext);
   const Spot = useContext(SpotifyContext);
-  const repartition = useContext(RepartitionContext);
 
   useEffect(() => {
     socket.on("message", function (data) {
@@ -88,7 +87,7 @@ function ActualEvent() {
       socket.off("refreshSpotify");
       socket.off("repartition");
     };
-  }, [socket]);
+  }, []);
 
   //<Chats />
   return (
