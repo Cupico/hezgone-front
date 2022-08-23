@@ -461,7 +461,7 @@ function Spotify({ Event }) {
                           </Button>
                           <p style={{ marginLeft: "10px" }}>{e.name}</p>
                         </div>
-                        <p>ajouté par {e.name}</p>
+                        <p>ajouté par {e.username}</p>
                       </div>
                     ))}
                 </Box>

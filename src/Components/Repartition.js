@@ -191,12 +191,12 @@ function Repartition({ Event }) {
 
 
     return (
-        <Box mt={"0px"}>
+        <Box mt={"20px"}>
 
-            <Text fontSize="3xl" fontWeight={"bold"}>{Event.eventGlobal.name}</Text>
-            <Text fontSize="3xl">{depense ? "Dépense" : "Repartition"}</Text>
+            {/* <Text fontSize="3xl" fontWeight={"bold"}>{Event.eventGlobal.name}</Text> */}
+            {/* <Text fontSize="3xl">{depense ? "Dépense" : "Repartition"}</Text> */}
 
-            <Button onClick={() => setDepense(false)}>répartition</Button>
+            <Button onClick={() => setDepense(false)} marginRight="15px">répartition</Button>
             <Button onClick={() => setDepense(true)}>depense</Button>
 
 
@@ -213,6 +213,7 @@ function Repartition({ Event }) {
                             type={"text"}
                             w={"full"}
                             backgroundColor={"gray.200"}
+                            color="black"
                         />
 
 
@@ -224,6 +225,7 @@ function Repartition({ Event }) {
                             type={"text"}
                             w={"full"}
                             backgroundColor={"gray.200"}
+                            color="black"
                         />
 
                         <Button

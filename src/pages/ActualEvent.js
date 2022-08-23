@@ -244,7 +244,7 @@ function ActualEvent() {
                     Playlist
                   </Text>
                 </Center>
-                <Center
+                {/* <Center
                   height={"150px"}
                   width={"150px"}
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
@@ -256,7 +256,7 @@ function ActualEvent() {
                   <Text fontWeight="bold" mt={3}>
                     Dépenses
                   </Text>
-                </Center>
+                </Center> */}
                 <Center
                   height={"150px"}
                   width={"150px"}
@@ -271,7 +271,7 @@ function ActualEvent() {
                     Répartition
                   </Text>
                 </Center>
-                <Center
+                {/* <Center
                   height={"150px"}
                   width={"150px"}
                   boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"
@@ -283,7 +283,7 @@ function ActualEvent() {
                   <Text fontWeight="bold" mt={3}>
                     Rentrer
                   </Text>
-                </Center>
+                </Center> */}
               </SimpleGrid>
               <Box height="300px" my={8}>
                 <MapWrapper />
